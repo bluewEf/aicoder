@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AICoder · AI-Powered Development & Creative Studio</title>
+  <title>AICoder · GitHub + Movie Studio + Screenwriting Workspace</title>
   <style>
     :root {
       --bg-primary: #0d1117;
@@ -18,7 +18,9 @@
       --accent-green: #238636;
       --accent-red: #da3633;
       --accent-purple: #d2a8ff;
+      --accent-gold: #d29922;
       --link-color: #58a6ff;
+      --cinema-gold: #ffd700;
     }
 
     * {
@@ -61,13 +63,17 @@
       top: 0;
       z-index: 100;
       backdrop-filter: blur(8px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
-    .Header-item {
+    .Header-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       height: 64px;
-      padding: 0 16px;
+      padding: 0 24px;
     }
 
     .Header-link {
@@ -75,69 +81,79 @@
       align-items: center;
       color: var(--text-primary);
       text-decoration: none;
-      font-weight: 600;
-      font-size: 16px;
-      margin-right: 24px;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.3px;
+      gap: 10px;
     }
 
     .Header-link:hover {
-      color: var(--link-color);
+      color: var(--cinema-gold);
       text-decoration: none;
     }
 
-    .Header-logo {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-
     .logo-icon {
-      width: 32px;
-      height: 32px;
-      background: linear-gradient(135deg, #58a6ff, #79c0ff);
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
-      font-size: 18px;
-      color: white;
+      font-weight: 900;
+      font-size: 20px;
+      color: #0d1117;
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
     }
 
     .Header-nav {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 32px;
       flex: 1;
-      margin-left: 16px;
+      margin-left: 48px;
     }
 
     .Header-nav-item {
       color: var(--text-secondary);
-      font-size: 14px;
-      font-weight: 500;
-      transition: color 0.2s;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .Header-nav-item:hover {
-      color: var(--link-color);
+      color: var(--cinema-gold);
       text-decoration: none;
+    }
+
+    .Header-nav-item.active {
+      color: var(--cinema-gold);
+      border-bottom: 2px solid var(--cinema-gold);
+      padding-bottom: 6px;
     }
 
     .Header-search {
       flex: 1;
-      max-width: 272px;
+      max-width: 320px;
       display: flex;
       align-items: center;
       background-color: var(--bg-secondary);
       border: 1px solid var(--border-default);
-      border-radius: 6px;
-      padding: 5px 12px;
+      border-radius: 8px;
+      padding: 8px 12px;
       color: var(--text-secondary);
       font-size: 12px;
+      transition: border-color 0.2s;
+    }
+
+    .Header-search:focus-within {
+      border-color: var(--cinema-gold);
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.15);
     }
 
     .Header-search input {
@@ -158,147 +174,204 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      margin-left: 24px;
     }
 
     .btn {
-      border-radius: 6px;
-      padding: 6px 16px;
+      border-radius: 8px;
+      padding: 8px 16px;
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 600;
       border: 1px solid var(--border-default);
       background-color: var(--bg-secondary);
       color: var(--text-primary);
       white-space: nowrap;
+      transition: all 0.2s;
     }
 
     .btn:hover {
       background-color: var(--bg-tertiary);
-      border-color: var(--border-default);
-      text-decoration: none;
+      border-color: var(--cinema-gold);
+      color: var(--cinema-gold);
     }
 
     .btn-primary {
-      background-color: var(--accent-green);
-      border-color: var(--accent-green);
-      color: white;
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      border-color: #ffd700;
+      color: #0d1117;
+      font-weight: 700;
     }
 
     .btn-primary:hover {
-      background-color: #2ea043;
-      border-color: #2ea043;
+      background: linear-gradient(135deg, #ffed4e, #ffff99);
+      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.3);
+      transform: translateY(-2px);
     }
 
-    /* Container */
+    /* Main Container */
     .container {
-      max-width: 1280px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 0 16px;
+      padding: 0 24px;
     }
 
-    /* Hero Section */
+    /* Cinematic Hero */
     .hero-section {
-      background: linear-gradient(135deg, rgba(13, 17, 23, 0.5) 0%, rgba(33, 38, 45, 0.2) 100%);
-      border-bottom: 1px solid var(--border-default);
-      padding: 96px 0 48px;
+      position: relative;
+      background: linear-gradient(135deg, rgba(13, 17, 23, 0.8) 0%, rgba(33, 38, 45, 0.4) 50%, rgba(13, 17, 23, 0.8) 100%);
+      border-bottom: 2px solid var(--cinema-gold);
+      padding: 120px 0 80px;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="film" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="%23161b22"/><circle cx="10" cy="10" r="3" fill="%231f6feb" opacity="0.3"/><circle cx="50" cy="10" r="3" fill="%231f6feb" opacity="0.3"/><circle cx="10" cy="50" r="3" fill="%231f6feb" opacity="0.3"/><circle cx="50" cy="50" r="3" fill="%231f6feb" opacity="0.3"/></pattern></defs><rect width="1200" height="600" fill="url(%23film)"/></svg>') repeat;
+      opacity: 0.03;
+      z-index: 0;
     }
 
     .hero-content {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 16px;
+      position: relative;
+      z-index: 1;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 48px;
+      gap: 60px;
       align-items: center;
     }
 
     .hero-copy h1 {
-      font-size: 56px;
-      font-weight: 700;
-      line-height: 1.25;
-      letter-spacing: -0.5px;
+      font-size: 64px;
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -1px;
       margin-bottom: 24px;
       color: var(--text-primary);
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     }
 
-    .hero-copy h1 .gradient {
+    .hero-copy h1 .code-text {
+      color: #58a6ff;
       background: linear-gradient(90deg, #58a6ff 0%, #79c0ff 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    .hero-copy h1 .gradient-purple {
-      background: linear-gradient(90deg, #d2a8ff 0%, #a371f7 100%);
+    .hero-copy h1 .cinema-text {
+      color: var(--cinema-gold);
+      background: linear-gradient(90deg, #ffd700 0%, #ffed4e 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
     .hero-copy p {
-      font-size: 20px;
+      font-size: 18px;
       color: var(--text-secondary);
-      line-height: 1.6;
+      line-height: 1.8;
       margin-bottom: 32px;
-      max-width: 480px;
+      max-width: 520px;
     }
 
-    .hero-actions {
+    .hero-cta {
       display: flex;
       gap: 16px;
-      margin-bottom: 32px;
       flex-wrap: wrap;
+      margin-bottom: 40px;
     }
 
-    .btn-large {
-      padding: 10px 24px;
+    .btn-hero {
+      padding: 14px 32px;
       font-size: 14px;
-      font-weight: 600;
-      border-radius: 6px;
+      font-weight: 700;
+      border-radius: 8px;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+      transition: all 0.3s;
     }
 
-    .btn-large.primary {
-      background-color: var(--accent-green);
-      border-color: var(--accent-green);
-      color: white;
+    .btn-hero.gold {
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      border: 2px solid #ffd700;
+      color: #0d1117;
+      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.25);
     }
 
-    .btn-large.secondary {
-      background-color: var(--bg-secondary);
-      border-color: var(--border-default);
-      color: var(--text-primary);
+    .btn-hero.gold:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(255, 215, 0, 0.35);
+    }
+
+    .btn-hero.blue {
+      background: rgba(88, 166, 255, 0.1);
+      border: 2px solid #58a6ff;
+      color: #58a6ff;
+    }
+
+    .btn-hero.blue:hover {
+      background: rgba(88, 166, 255, 0.2);
+      box-shadow: 0 8px 24px rgba(88, 166, 255, 0.2);
     }
 
     .hero-stats {
       display: flex;
-      gap: 32px;
-      font-size: 14px;
-      color: var(--text-secondary);
+      gap: 40px;
+      flex-wrap: wrap;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 215, 0, 0.2);
     }
 
-    .stat-item strong {
-      display: block;
-      font-size: 20px;
-      color: var(--text-primary);
-      font-weight: 700;
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-number {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--cinema-gold);
       margin-bottom: 4px;
     }
 
-    .hero-mockup {
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Hero Mockup - Dual Workspace */
+    .hero-mockup-container {
+      position: relative;
+      perspective: 1000px;
+    }
+
+    .mockup-card {
       background-color: var(--bg-secondary);
-      border: 1px solid var(--border-default);
-      border-radius: 8px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      border: 2px solid var(--border-default);
+      border-radius: 12px;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
       overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .mockup-card:hover {
+      border-color: var(--cinema-gold);
+      box-shadow: 0 32px 64px rgba(255, 215, 0, 0.15);
+      transform: translateY(-4px);
     }
 
     .mockup-header {
-      background-color: var(--bg-primary);
+      background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
       border-bottom: 1px solid var(--border-default);
-      padding: 12px 16px;
+      padding: 14px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -306,26 +379,24 @@
 
     .mockup-tabs {
       display: flex;
-      gap: 16px;
+      gap: 12px;
       flex: 1;
     }
 
     .mockup-tab {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-secondary);
       border-bottom: 2px solid transparent;
-      padding: 8px 0;
+      padding: 8px 12px;
       cursor: pointer;
       transition: all 0.2s;
+      font-weight: 600;
+      text-transform: uppercase;
     }
 
     .mockup-tab.active {
-      color: var(--link-color);
-      border-bottom-color: var(--link-color);
-    }
-
-    .mockup-tab:hover {
-      color: var(--text-primary);
+      color: var(--cinema-gold);
+      border-bottom-color: var(--cinema-gold);
     }
 
     .mockup-body {
@@ -336,11 +407,13 @@
       color: #79c0ff;
       line-height: 1.8;
       overflow-x: auto;
+      height: 300px;
     }
 
     .code-line {
       display: flex;
       gap: 12px;
+      margin-bottom: 4px;
     }
 
     .code-number {
@@ -370,17 +443,188 @@
       color: #8b949e;
     }
 
-    /* Features Section */
-    .features-section {
+    .screenplay-line {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .screenplay-number {
+      color: var(--text-tertiary);
+      user-select: none;
+      min-width: 32px;
+      text-align: right;
+    }
+
+    .screenplay-content {
+      flex: 1;
+      color: #ffed4e;
+    }
+
+    .scene-heading {
+      color: #ffd700;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .character {
+      color: #d2a8ff;
+      font-weight: 700;
+    }
+
+    .parenthetical {
+      color: #a5d6ff;
+      font-style: italic;
+    }
+
+    .action {
+      color: #79c0ff;
+    }
+
+    /* Dashboard Section */
+    .dashboard-section {
       padding: 80px 0;
       border-bottom: 1px solid var(--border-default);
+      background: rgba(22, 27, 34, 0.3);
     }
 
     .section-title {
-      font-size: 32px;
-      font-weight: 700;
+      font-size: 36px;
+      font-weight: 900;
       margin-bottom: 48px;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.8px;
+      color: var(--text-primary);
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+
+    .dashboard-panel {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .dashboard-panel:hover {
+      border-color: var(--cinema-gold);
+      background-color: var(--bg-tertiary);
+    }
+
+    .panel-header {
+      background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-default);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .panel-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-icon {
+      font-size: 18px;
+    }
+
+    .panel-body {
+      padding: 20px;
+    }
+
+    .repo-item {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .repo-item:last-child {
+      border-bottom: none;
+    }
+
+    .repo-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #58a6ff;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .repo-name:hover {
+      color: var(--cinema-gold);
+    }
+
+    .repo-type {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .repo-type.code {
+      background: rgba(88, 166, 255, 0.15);
+      color: #58a6ff;
+    }
+
+    .repo-type.script {
+      background: rgba(255, 215, 0, 0.15);
+      color: var(--cinema-gold);
+    }
+
+    .activity-feed {
+      list-style: none;
+    }
+
+    .activity-item {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-muted);
+      font-size: 12px;
+      color: var(--text-secondary);
+      display: flex;
+      gap: 8px;
+    }
+
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+
+    .activity-icon {
+      font-size: 14px;
+      min-width: 16px;
+    }
+
+    .activity-text {
+      flex: 1;
+    }
+
+    .activity-text strong {
+      color: var(--text-primary);
+    }
+
+    .activity-time {
+      color: var(--text-tertiary);
+      white-space: nowrap;
+      font-size: 11px;
+    }
+
+    /* Features Grid */
+    .features-section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border-default);
     }
 
     .features-grid {
@@ -390,282 +634,200 @@
     }
 
     .feature-card {
-      padding: 24px;
+      padding: 32px 24px;
       border: 1px solid var(--border-default);
-      border-radius: 8px;
+      border-radius: 12px;
       background-color: var(--bg-secondary);
-      transition: all 0.2s;
+      transition: all 0.3s;
+      text-align: center;
     }
 
     .feature-card:hover {
       background-color: var(--bg-tertiary);
-      border-color: var(--border-muted);
-      transform: translateY(-2px);
+      border-color: var(--cinema-gold);
+      transform: translateY(-4px);
     }
 
     .feature-icon {
-      font-size: 32px;
+      font-size: 48px;
       margin-bottom: 16px;
     }
 
     .feature-card h3 {
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 12px;
       color: var(--text-primary);
     }
 
     .feature-card p {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-secondary);
       line-height: 1.6;
       margin: 0;
     }
 
-    /* Use Cases Section */
-    .use-cases-section {
+    /* Workspace Section */
+    .workspace-section {
       padding: 80px 0;
       border-bottom: 1px solid var(--border-default);
     }
 
-    .use-cases-grid {
+    .workspace-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 32px;
+      gap: 40px;
     }
 
-    .use-case-card {
-      padding: 32px;
-      border: 1px solid var(--border-default);
-      border-radius: 8px;
-      background-color: var(--bg-secondary);
-      transition: all 0.2s;
+    .workspace-item {
+      display: flex;
+      flex-direction: column;
     }
 
-    .use-case-card:hover {
-      background-color: var(--bg-tertiary);
-      border-color: var(--accent-blue);
-      box-shadow: 0 8px 24px rgba(88, 166, 255, 0.15);
+    .workspace-icon {
+      font-size: 64px;
+      margin-bottom: 24px;
     }
 
-    .use-case-icon {
-      font-size: 48px;
+    .workspace-item h3 {
+      font-size: 24px;
+      font-weight: 700;
       margin-bottom: 16px;
-    }
-
-    .use-case-card h3 {
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 12px;
       color: var(--text-primary);
     }
 
-    .use-case-card p {
+    .workspace-item p {
       font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 16px;
+      line-height: 1.8;
+      margin-bottom: 20px;
     }
 
-    .use-case-features {
+    .feature-list {
       list-style: none;
       font-size: 13px;
       color: var(--text-secondary);
     }
 
-    .use-case-features li {
-      padding: 6px 0;
+    .feature-list li {
+      padding: 8px 0;
       display: flex;
       gap: 8px;
     }
 
-    .use-case-features li:before {
-      content: "✓";
-      color: var(--accent-green);
+    .feature-list li:before {
+      content: "→";
+      color: var(--cinema-gold);
       font-weight: 700;
+      min-width: 16px;
     }
 
-    /* Repositories Section */
-    .repos-section {
+    /* Showcase Grid */
+    .showcase-section {
       padding: 80px 0;
       border-bottom: 1px solid var(--border-default);
     }
 
-    .repos-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
     }
 
-    .repos-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      border: 1px solid var(--border-default);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .repo-item {
-      padding: 16px;
-      border-bottom: 1px solid var(--border-default);
+    .showcase-card {
       background-color: var(--bg-secondary);
-      transition: all 0.2s;
-    }
-
-    .repo-item:last-child {
-      border-bottom: none;
-    }
-
-    .repo-item:hover {
-      background-color: var(--bg-tertiary);
-    }
-
-    .repo-header-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 8px;
-    }
-
-    .repo-icon {
-      width: 16px;
-      height: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-    }
-
-    .repo-name {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--link-color);
+      border: 1px solid var(--border-default);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s;
       cursor: pointer;
     }
 
-    .repo-name:hover {
-      text-decoration: underline;
+    .showcase-card:hover {
+      border-color: var(--cinema-gold);
+      box-shadow: 0 16px 40px rgba(255, 215, 0, 0.1);
+      transform: translateY(-4px);
     }
 
-    .repo-badge {
-      background-color: rgba(88, 166, 255, 0.1);
-      color: var(--link-color);
-      padding: 2px 8px;
-      border-radius: 24px;
-      font-size: 11px;
-      font-weight: 600;
-      border: 1px solid rgba(88, 166, 255, 0.3);
-    }
-
-    .repo-badge.ai {
-      background-color: rgba(210, 168, 255, 0.1);
-      color: var(--accent-purple);
-      border-color: rgba(210, 168, 255, 0.3);
-    }
-
-    .repo-desc {
-      font-size: 14px;
-      color: var(--text-secondary);
-      margin-bottom: 8px;
-    }
-
-    .repo-footer {
+    .showcase-header {
+      background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-default);
       display: flex;
       align-items: center;
+      gap: 12px;
+    }
+
+    .showcase-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      flex: 1;
+    }
+
+    .showcase-badge {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+      background: rgba(255, 215, 0, 0.15);
+      color: var(--cinema-gold);
+    }
+
+    .showcase-body {
+      padding: 20px;
+    }
+
+    .showcase-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .showcase-stats {
+      display: flex;
       gap: 16px;
+      flex-wrap: wrap;
       font-size: 12px;
       color: var(--text-tertiary);
     }
 
-    .repo-stat {
+    .showcase-stat {
       display: flex;
       align-items: center;
       gap: 4px;
     }
 
-    .language-color {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    /* Pricing Section */
-    .pricing-section {
+    /* CTA Section */
+    .cta-section {
       padding: 80px 0;
       border-bottom: 1px solid var(--border-default);
+      text-align: center;
     }
 
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 48px;
+    .cta-content h2 {
+      font-size: 48px;
+      font-weight: 900;
+      margin-bottom: 24px;
+      letter-spacing: -0.8px;
     }
 
-    .pricing-card {
-      padding: 32px;
-      border: 1px solid var(--border-default);
-      border-radius: 8px;
-      background-color: var(--bg-secondary);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .pricing-card.featured {
-      border-color: var(--accent-green);
-      box-shadow: 0 0 20px rgba(46, 160, 67, 0.2);
-      transform: scale(1.05);
-    }
-
-    .pricing-name {
+    .cta-content p {
       font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--text-primary);
-    }
-
-    .pricing-price {
-      font-size: 36px;
-      font-weight: 700;
-      color: var(--accent-green);
-      margin-bottom: 4px;
-    }
-
-    .pricing-desc {
-      font-size: 13px;
       color: var(--text-secondary);
-      margin-bottom: 24px;
-    }
-
-    .pricing-features {
-      list-style: none;
-      flex: 1;
-      margin-bottom: 24px;
-    }
-
-    .pricing-features li {
-      padding: 8px 0;
-      font-size: 13px;
-      color: var(--text-secondary);
-      display: flex;
-      gap: 8px;
-    }
-
-    .pricing-features li:before {
-      content: "✓";
-      color: var(--accent-green);
-      font-weight: 700;
-      min-width: 16px;
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     /* Footer */
     .footer {
       background-color: var(--bg-secondary);
-      border-top: 1px solid var(--border-default);
-      padding: 48px 0;
+      border-top: 2px solid var(--cinema-gold);
+      padding: 60px 0;
       font-size: 12px;
       color: var(--text-secondary);
     }
@@ -673,14 +835,16 @@
     .footer-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 32px;
-      margin-bottom: 32px;
+      gap: 40px;
+      margin-bottom: 40px;
     }
 
     .footer-section h4 {
       color: var(--text-primary);
-      font-size: 14px;
-      font-weight: 600;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       margin-bottom: 16px;
     }
 
@@ -689,10 +853,11 @@
       margin-bottom: 12px;
       color: var(--text-secondary);
       font-size: 12px;
+      transition: color 0.2s;
     }
 
     .footer-section a:hover {
-      color: var(--link-color);
+      color: var(--cinema-gold);
     }
 
     .footer-bottom {
@@ -705,31 +870,23 @@
     @media (max-width: 1024px) {
       .hero-content {
         grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 40px;
       }
 
       .hero-copy h1 {
         font-size: 44px;
       }
 
-      .hero-mockup {
-        max-width: 100%;
+      .dashboard-grid {
+        grid-template-columns: 1fr;
       }
 
       .features-grid {
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .use-cases-grid {
+      .workspace-grid {
         grid-template-columns: 1fr;
-      }
-
-      .pricing-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .pricing-card.featured {
-        transform: scale(1);
       }
 
       .footer-grid {
@@ -742,8 +899,12 @@
         display: none;
       }
 
+      .Header-search {
+        display: none;
+      }
+
       .hero-copy h1 {
-        font-size: 36px;
+        font-size: 32px;
       }
 
       .hero-copy p {
@@ -754,25 +915,16 @@
         grid-template-columns: 1fr;
       }
 
-      .pricing-grid {
+      .showcase-grid {
         grid-template-columns: 1fr;
       }
 
-      .hero-stats {
-        flex-wrap: wrap;
-        gap: 24px;
+      .cta-content h2 {
+        font-size: 32px;
       }
 
       .footer-grid {
         grid-template-columns: 1fr;
-      }
-
-      .Header-search {
-        display: none;
-      }
-
-      .repo-footer {
-        flex-wrap: wrap;
       }
     }
   </style>
@@ -780,88 +932,253 @@
 <body>
   <!-- Header -->
   <header class="Header">
-    <div class="container" style="display: flex; align-items: center; justify-content: space-between; height: 64px;">
-      <a href="#" class="Header-link" style="margin-right: 0;">
-        <div class="logo-icon">A</div>
-        <span>AICoder</span>
+    <div class="Header-wrapper">
+      <a href="#" class="Header-link">
+        <div class="logo-icon">▶</div>
+        <span>AICoder Studio</span>
       </a>
 
-      <nav class="Header-nav" style="margin-left: 32px;">
-        <a href="#features" class="Header-nav-item">Features</a>
-        <a href="#use-cases" class="Header-nav-item">Studio</a>
-        <a href="#repositories" class="Header-nav-item">Projects</a>
-        <a href="#pricing" class="Header-nav-item">Pricing</a>
+      <nav class="Header-nav">
+        <a href="#dashboard" class="Header-nav-item active">🖥️ Dashboard</a>
+        <a href="#workspace" class="Header-nav-item">✍️ Workspace</a>
+        <a href="#showcase" class="Header-nav-item">🎬 Showcase</a>
+        <a href="#docs" class="Header-nav-item">📚 Docs</a>
       </nav>
 
       <div class="Header-search">
         🔍
-        <input type="text" placeholder="Search repositories..." />
+        <input type="text" placeholder="Search repos & scripts..." />
       </div>
 
       <div class="Header-actions">
         <button class="btn">Sign in</button>
-        <button class="btn btn-primary">Get started</button>
+        <button class="btn btn-primary">Start free</button>
       </div>
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Cinematic Hero -->
   <section class="hero-section">
-    <div class="hero-content">
-      <div class="hero-copy">
-        <h1>Where <span class="gradient">Code</span> & <span class="gradient-purple">Creativity</span> Meet</h1>
-        <p>Build production-ready applications and craft professional movie scripts with AI. AICoder powers full-stack development and creative storytelling.</p>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-copy">
+          <h1>
+            <span class="code-text">Code</span> + <span class="cinema-text">Cinema</span>
+            <br />Unified Creation
+          </h1>
+          <p>
+            AICoder Studio merges GitHub-style code repositories with professional screenwriting workspaces. Build software and craft award-winning scripts in one powerful platform.
+          </p>
 
-        <div class="hero-actions">
-          <button class="btn-large primary">Start creating</button>
-          <button class="btn-large secondary">View gallery</button>
+          <div class="hero-cta">
+            <button class="btn-hero gold">🚀 Launch Studio</button>
+            <button class="btn-hero blue">📹 Watch Demo</button>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number">100K+</span>
+              <span class="stat-label">Developers & Writers</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">50M+</span>
+              <span class="stat-label">Code Repositories</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">12K+</span>
+              <span class="stat-label">Produced Scripts</span>
+            </div>
+          </div>
         </div>
 
-        <div class="hero-stats">
-          <div class="stat-item">
-            <strong>100K+</strong>
-            Developers
-          </div>
-          <div class="stat-item">
-            <strong>50M+</strong>
-            Code Repos
-          </div>
-          <div class="stat-item">
-            <strong>25K+</strong>
-            Scripts
+        <div class="hero-mockup-container">
+          <div class="mockup-card">
+            <div class="mockup-header">
+              <div class="mockup-tabs">
+                <div class="mockup-tab active">🖥️ Code</div>
+                <div class="mockup-tab">✍️ Script</div>
+                <div class="mockup-tab">🔀 Sync</div>
+              </div>
+            </div>
+
+            <div class="mockup-body">
+              <div class="code-line">
+                <span class="code-number">1</span>
+                <span class="code-content"><span class="comment">// AI-Powered Full Stack</span></span>
+              </div>
+              <div class="code-line">
+                <span class="code-number">2</span>
+                <span class="code-content"><span class="keyword">const</span> <span class="function">createMasterpiece</span> = () =&gt; {</span>
+              </div>
+              <div class="code-line">
+                <span class="code-number">3</span>
+                <span class="code-content">&nbsp;&nbsp;<span class="keyword">return</span> {</span>
+              </div>
+              <div class="code-line">
+                <span class="code-number">4</span>
+                <span class="code-content">&nbsp;&nbsp;&nbsp;&nbsp;code: <span class="string">"production-ready"</span>,</span>
+              </div>
+              <div class="code-line">
+                <span class="code-number">5</span>
+                <span class="code-content">&nbsp;&nbsp;&nbsp;&nbsp;script: <span class="string">"Oscar-worthy"</span></span>
+              </div>
+              <div class="code-line">
+                <span class="code-number">6</span>
+                <span class="code-content">&nbsp;&nbsp;};</span>
+              </div>
+              <div class="code-line">
+                <span class="code-number">7</span>
+                <span class="code-content">};</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="hero-mockup">
-        <div class="mockup-header">
-          <div class="mockup-tabs">
-            <div class="mockup-tab active">Code</div>
-            <div class="mockup-tab">Scripts</div>
-            <div class="mockup-tab">Both</div>
+  <!-- Dashboard Section -->
+  <section class="dashboard-section" id="dashboard">
+    <div class="container">
+      <h2 class="section-title">Your Studio Dashboard</h2>
+
+      <div class="dashboard-grid">
+        <!-- Code Repository Panel -->
+        <div class="dashboard-panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span class="panel-icon">💻</span>
+              Recent Code Repositories
+            </div>
+            <a href="#" style="font-size: 12px; color: var(--text-secondary);">View all →</a>
+          </div>
+          <div class="panel-body">
+            <div class="repo-item">
+              <span class="repo-name">aicoder/ai-saas-kit</span>
+              <span class="repo-type code">Code</span>
+            </div>
+            <div class="repo-item">
+              <span class="repo-name">aicoder/react-studio-ui</span>
+              <span class="repo-type code">Code</span>
+            </div>
+            <div class="repo-item">
+              <span class="repo-name">aicoder/backend-api</span>
+              <span class="repo-type code">Code</span>
+            </div>
+            <div class="repo-item">
+              <span class="repo-name">aicoder/mobile-app</span>
+              <span class="repo-type code">Code</span>
+            </div>
+            <div class="repo-item">
+              <span class="repo-name">aicoder/deployment-ops</span>
+              <span class="repo-type code">Code</span>
+            </div>
           </div>
         </div>
 
-        <div class="mockup-body">
-          <div class="code-line">
-            <span class="code-number">1</span>
-            <span class="code-content"><span class="comment">// Full-stack with AI creativity</span></span>
+        <!-- Script Projects Panel -->
+        <div class="dashboard-panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span class="panel-icon">🎬</span>
+              Active Script Projects
+            </div>
+            <a href="#" style="font-size: 12px; color: var(--text-secondary);">View all →</a>
           </div>
-          <div class="code-line">
-            <span class="code-number">2</span>
-            <span class="code-content"><span class="keyword">const</span> project = <span class="function">createProject</span>({</span>
+          <div class="panel-body">
+            <div class="repo-item">
+              <span class="repo-name">infinity-symbiotes-movie</span>
+              <span class="repo-type script">Script</span>
+            </div>
+            <div class="repo-item">
+              <span class="repo-name">midnight-detective-series</span>
+              <span class="repo-type script">Script</span>
+            </div>
+            <div class="repo-item">
+              <span class="repo-name">scifi-anthology-5</span>
+              <span class="repo-type script">Script</span>
+            </div>
+            <div class="repo-item">
+              <span class="repo-name">indie-feature-2025</span>
+              <span class="repo-type script">Script</span>
+            </div>
+            <div class="repo-item">
+              <span class="repo-name">web-series-pilot</span>
+              <span class="repo-type script">Script</span>
+            </div>
           </div>
-          <div class="code-line">
-            <span class="code-number">3</span>
-            <span class="code-content">&nbsp;&nbsp;code: <span class="string">"production-ready"</span>,</span>
+        </div>
+
+        <!-- Activity Feed -->
+        <div class="dashboard-panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span class="panel-icon">📊</span>
+              Your Activity
+            </div>
           </div>
-          <div class="code-line">
-            <span class="code-number">4</span>
-            <span class="code-content">&nbsp;&nbsp;scripts: <span class="string">"professional-grade"</span></span>
+          <div class="panel-body">
+            <ul class="activity-feed">
+              <li class="activity-item">
+                <span class="activity-icon">📝</span>
+                <span class="activity-text"><strong>Pushed</strong> 12 commits to backend-api</span>
+                <span class="activity-time">2h ago</span>
+              </li>
+              <li class="activity-item">
+                <span class="activity-icon">🎬</span>
+                <span class="activity-text"><strong>Revised</strong> Act II in symbiotes-movie</span>
+                <span class="activity-time">4h ago</span>
+              </li>
+              <li class="activity-item">
+                <span class="activity-icon">✅</span>
+                <span class="activity-text"><strong>Merged</strong> PR #247 in react-ui</span>
+                <span class="activity-time">6h ago</span>
+              </li>
+              <li class="activity-item">
+                <span class="activity-icon">💬</span>
+                <span class="activity-text"><strong>Commented</strong> on detective-series</span>
+                <span class="activity-time">1d ago</span>
+              </li>
+              <li class="activity-item">
+                <span class="activity-icon">🎞️</span>
+                <span class="activity-text"><strong>Finalized</strong> screenplay format</span>
+                <span class="activity-time">2d ago</span>
+              </li>
+            </ul>
           </div>
-          <div class="code-line">
-            <span class="code-number">5</span>
-            <span class="code-content">});</span>
+        </div>
+
+        <!-- Statistics & Insights -->
+        <div class="dashboard-panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span class="panel-icon">📈</span>
+              Studio Insights
+            </div>
+          </div>
+          <div class="panel-body">
+            <ul class="activity-feed">
+              <li class="activity-item">
+                <span style="color: var(--text-primary); font-weight: 600;">Code Commits</span>
+                <span class="activity-time">342 this month</span>
+              </li>
+              <li class="activity-item">
+                <span style="color: var(--text-primary); font-weight: 600;">Pages Written</span>
+                <span class="activity-time">89 screenplay pages</span>
+              </li>
+              <li class="activity-item">
+                <span style="color: var(--text-primary); font-weight: 600;">Pull Requests</span>
+                <span class="activity-time">28 completed</span>
+              </li>
+              <li class="activity-item">
+                <span style="color: var(--text-primary); font-weight: 600;">Collaborators</span>
+                <span class="activity-time">12 active</span>
+              </li>
+              <li class="activity-item">
+                <span style="color: var(--text-primary); font-weight: 600;">Production Ready</span>
+                <span class="activity-time">3 deployments</span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -869,282 +1186,181 @@
   </section>
 
   <!-- Features Section -->
-  <section class="features-section" id="features">
+  <section class="features-section">
     <div class="container">
-      <h2 class="section-title">Powerful Features for Developers & Creators</h2>
+      <h2 class="section-title">Unified Feature Set</h2>
 
       <div class="features-grid">
         <div class="feature-card">
-          <div class="feature-icon">🤖</div>
-          <h3>AI Code Generation</h3>
-          <p>Generate production-ready code from natural language. Write features in seconds, not hours.</p>
+          <div class="feature-icon">🔀</div>
+          <h3>Git-Like Version Control</h3>
+          <p>Track every revision of code AND scripts. Branch, merge, and collaborate seamlessly on both development and screenwriting.</p>
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">🎬</div>
-          <h3>Professional Script Writing</h3>
-          <p>Create movie scripts, screenplays, and TV series with AI-powered storytelling and formatting.</p>
+          <div class="feature-icon">🤖</div>
+          <h3>AI Code & Story Generation</h3>
+          <p>Generate complete applications and full screenplays. Get production-ready code and Oscar-worthy scripts in seconds.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🎭</div>
+          <h3>Dual Workspace</h3>
+          <p>Switch seamlessly between code editor and screenplay writer. Work on interconnected projects simultaneously.</p>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon">📊</div>
           <h3>Smart Code Review</h3>
-          <p>AI-powered pull request analysis catches bugs, suggests improvements, and explains changes.</p>
+          <p>AI-powered PR reviews for code. Advanced story feedback for scripts with plot consistency checks.</p>
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">🎨</div>
-          <h3>Creative Collaboration</h3>
-          <p>Work with writers, directors, and developers in real-time on scripts and code projects.</p>
+          <div class="feature-icon">🎬</div>
+          <h3>Professional Export</h3>
+          <p>Export code with auto-deployment. Export scripts in Final Draft, PDF, or industry-standard formats.</p>
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">📚</div>
-          <h3>Version Control</h3>
-          <p>Track every revision of your code and scripts with Git-like version control and conflict resolution.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">⚡</div>
-          <h3>Deploy Everything</h3>
-          <p>One-click deployment for applications AND export movie scripts in industry-standard formats.</p>
+          <div class="feature-icon">🤝</div>
+          <h3>Real-Time Collaboration</h3>
+          <p>Work with developers AND writers simultaneously. See live edits, comments, and version history in real-time.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Use Cases Section -->
-  <section class="use-cases-section" id="use-cases">
+  <!-- Workspace Section -->
+  <section class="workspace-section" id="workspace">
     <div class="container">
-      <h2 class="section-title">Dual Studio: Code & Creativity</h2>
+      <h2 class="section-title">Integrated Workspaces</h2>
 
-      <div class="use-cases-grid">
-        <div class="use-case-card">
-          <div class="use-case-icon">💻</div>
-          <h3>Full-Stack Development</h3>
-          <p>From backend APIs to frontend UIs, generate entire applications with AI assistance. Perfect for startups, enterprises, and solo developers.</p>
-          <ul class="use-case-features">
-            <li>Generate backend with Node.js, Python, Go</li>
-            <li>Create React, Vue, or Angular frontends</li>
-            <li>Database schema and migrations</li>
-            <li>Complete testing suites</li>
-            <li>CI/CD pipeline setup</li>
+      <div class="workspace-grid">
+        <!-- Code Workspace -->
+        <div class="workspace-item">
+          <div class="workspace-icon">💻</div>
+          <h3>Developer Workspace</h3>
+          <p>
+            A full-featured IDE integrated with GitHub, featuring AI-powered code generation, intelligent auto-completion, and seamless deployment pipelines. Write, test, and deploy with confidence.
+          </p>
+          <ul class="feature-list">
+            <li>Multi-language support (TypeScript, Python, Go, Rust, etc.)</li>
+            <li>Real-time collaboration & pair programming</li>
+            <li>Automated testing & quality assurance</li>
+            <li>One-click deployment to cloud</li>
+            <li>Performance monitoring & debugging</li>
+            <li>Security scanning & vulnerability fixes</li>
           </ul>
         </div>
 
-        <div class="use-case-card">
-          <div class="use-case-icon">🎬</div>
-          <h3>Professional Screenwriting</h3>
-          <p>Write movie scripts, TV pilots, web series, and short films with professional formatting. Perfect for screenwriters, production companies, and filmmakers.</p>
-          <ul class="use-case-features">
-            <li>Feature film screenplays (90-120 pages)</li>
-            <li>TV series bible & episode outlines</li>
-            <li>Industry-standard formatting (Final Draft)</li>
-            <li>Story structure & character development</li>
-            <li>Dialogue refinement & revision tracking</li>
-          </ul>
-        </div>
-
-        <div class="use-case-card">
-          <div class="use-case-icon">🎮</div>
-          <h3>Game Development</h3>
-          <p>Build games with Unity, Unreal, or Godot. Generate game mechanics, narratives, and code simultaneously.</p>
-          <ul class="use-case-features">
-            <li>Game engine integration (Unity/Godot)</li>
-            <li>Game mechanics and AI systems</li>
-            <li>Narrative & dialogue generation</li>
-            <li>Asset management</li>
-            <li>Multiplayer architecture</li>
-          </ul>
-        </div>
-
-        <div class="use-case-card">
-          <div class="use-case-icon">🎓</div>
-          <h3>Content & Education</h3>
-          <p>Create interactive educational apps with engaging narratives. Combine technical documentation with creative storytelling.</p>
-          <ul class="use-case-features">
-            <li>Interactive course platforms</li>
-            <li>Educational game mechanics</li>
-            <li>Documentation with narratives</li>
-            <li>Tutorial content generation</li>
-            <li>Learner engagement optimization</li>
+        <!-- Screenplay Workspace -->
+        <div class="workspace-item">
+          <div class="workspace-icon">✍️</div>
+          <h3>Screenwriting Workspace</h3>
+          <p>
+            A professional screenplay editor built for screenwriters. AI-assisted story development, character arcs, dialogue refinement, and industry-standard formatting. Create production-ready scripts.
+          </p>
+          <ul class="feature-list">
+            <li>Final Draft & industry-standard formatting</li>
+            <li>AI story structure & plot suggestions</li>
+            <li>Character development & dialogue assistance</li>
+            <li>Revision tracking & version history</li>
+            <li>Collaboration notes & director feedback</li>
+            <li>Export to PDF, HTML, or production formats</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Repositories Section -->
-  <section class="repos-section" id="repositories">
+  <!-- Showcase Section -->
+  <section class="showcase-section" id="showcase">
     <div class="container">
-      <div class="repos-header">
-        <h2 class="section-title" style="margin-bottom: 0;">Featured Projects & Scripts</h2>
-        <a href="#" style="color: var(--link-color); font-size: 14px;">View all →</a>
-      </div>
+      <h2 class="section-title">Studio Showcase</h2>
 
-      <div class="repos-list">
-        <div class="repo-item">
-          <div class="repo-header-row">
-            <div class="repo-icon">💻</div>
-            <a href="#" class="repo-name">aicoder/ai-saas-platform</a>
-            <span class="repo-badge">Public</span>
+      <div class="showcase-grid">
+        <!-- Code Project -->
+        <div class="showcase-card">
+          <div class="showcase-header">
+            <span class="showcase-title">💻 ai-saas-platform</span>
+            <span class="showcase-badge">Featured</span>
           </div>
-          <div class="repo-desc">Full-stack SaaS application with authentication, payments, and dashboard built entirely with AI assistance</div>
-          <div class="repo-footer">
-            <div class="repo-stat">
-              <span class="language-color" style="background-color: #3178c6;"></span>
-              TypeScript
+          <div class="showcase-body">
+            <div class="showcase-desc">
+              Complete SaaS application: Authentication, Stripe payments, user dashboard, analytics, and admin panel. Built entirely with AI assistance in 48 hours.
             </div>
-            <div class="repo-stat">⭐ 12.4k stars</div>
-            <div class="repo-stat">🔀 892 forks</div>
-            <div class="repo-stat">Updated 2 hours ago</div>
+            <div class="showcase-stats">
+              <div class="showcase-stat">⭐ 24.5k stars</div>
+              <div class="showcase-stat">🔀 1.2k forks</div>
+              <div class="showcase-stat">TypeScript</div>
+            </div>
           </div>
         </div>
 
-        <div class="repo-item">
-          <div class="repo-header-row">
-            <div class="repo-icon">🎬</div>
-            <a href="#" class="repo-name">aicoder/infinity-symbiotes-movie</a>
-            <span class="repo-badge ai">AI Script</span>
+        <!-- Script Project -->
+        <div class="showcase-card">
+          <div class="showcase-header">
+            <span class="showcase-title">🎬 infinity-symbiotes-movie</span>
+            <span class="showcase-badge">Oscar-Bound</span>
           </div>
-          <div class="repo-desc">Professional feature film screenplay "Infinity Symbiotes" - Award-winning science fiction thriller with 120-page draft</div>
-          <div class="repo-footer">
-            <div class="repo-stat">
-              <span class="language-color" style="background-color: #a371f7;"></span>
-              Screenplay
+          <div class="showcase-body">
+            <div class="showcase-desc">
+              Award-winning sci-fi thriller screenplay. 120-page feature film with complex character development, stunning visuals, and mind-bending plot twists. Ready for production.
             </div>
-            <div class="repo-stat">⭐ 4.2k stars</div>
-            <div class="repo-stat">🔀 342 forks</div>
-            <div class="repo-stat">Updated 5 hours ago</div>
+            <div class="showcase-stats">
+              <div class="showcase-stat">⭐ 8.9k stars</div>
+              <div class="showcase-stat">📑 120 pages</div>
+              <div class="showcase-stat">Screenplay</div>
+            </div>
           </div>
         </div>
 
-        <div class="repo-item">
-          <div class="repo-header-row">
-            <div class="repo-icon">💻</div>
-            <a href="#" class="repo-name">aicoder/streaming-platform</a>
-            <span class="repo-badge">Public</span>
+        <!-- Code Project 2 -->
+        <div class="showcase-card">
+          <div class="showcase-header">
+            <span class="showcase-title">💻 streaming-platform</span>
+            <span class="showcase-badge">Production</span>
           </div>
-          <div class="repo-desc">Netflix-like streaming platform with video transcoding, recommendations, and user management</div>
-          <div class="repo-footer">
-            <div class="repo-stat">
-              <span class="language-color" style="background-color: #f1e05a;"></span>
-              Python
+          <div class="showcase-body">
+            <div class="showcase-desc">
+              Netflix-scale streaming platform. Video transcoding, adaptive bitrate streaming, personalized recommendations, and 4K support. Handles 10M+ concurrent users.
             </div>
-            <div class="repo-stat">⭐ 8.7k stars</div>
-            <div class="repo-stat">🔀 456 forks</div>
-            <div class="repo-stat">Updated 1 day ago</div>
+            <div class="showcase-stats">
+              <div class="showcase-stat">⭐ 18.3k stars</div>
+              <div class="showcase-stat">🔀 892 forks</div>
+              <div class="showcase-stat">Python + Go</div>
+            </div>
           </div>
         </div>
 
-        <div class="repo-item">
-          <div class="repo-header-row">
-            <div class="repo-icon">🎬</div>
-            <a href="#" class="repo-name">aicoder/noir-detective-series</a>
-            <span class="repo-badge ai">AI Script</span>
+        <!-- Script Project 2 -->
+        <div class="showcase-card">
+          <div class="showcase-header">
+            <span class="showcase-title">🎬 noir-detective-series</span>
+            <span class="showcase-badge">In Development</span>
           </div>
-          <div class="repo-desc">TV series bible for "Midnight Cases" - 10-episode detective thriller with complete character arcs and plot outlines</div>
-          <div class="repo-footer">
-            <div class="repo-stat">
-              <span class="language-color" style="background-color: #a371f7;"></span>
-              Screenplay
+          <div class="showcase-body">
+            <div class="showcase-desc">
+              10-episode TV series bible for "Midnight Cases" detective thriller. Complete character bios, episode outlines, and series arc. Pitched to major studios.
             </div>
-            <div class="repo-stat">⭐ 2.1k stars</div>
-            <div class="repo-stat">🔀 178 forks</div>
-            <div class="repo-stat">Updated yesterday</div>
-          </div>
-        </div>
-
-        <div class="repo-item">
-          <div class="repo-header-row">
-            <div class="repo-icon">💻</div>
-            <a href="#" class="repo-name">aicoder/ai-code-review-bot</a>
-            <span class="repo-badge">Public</span>
-          </div>
-          <div class="repo-desc">Intelligent GitHub bot for automated code reviews and script feedback on pull requests and screenplay submissions</div>
-          <div class="repo-footer">
-            <div class="repo-stat">
-              <span class="language-color" style="background-color: #f1e05a;"></span>
-              Python
+            <div class="showcase-stats">
+              <div class="showcase-stat">⭐ 5.2k stars</div>
+              <div class="showcase-stat">📑 10 Episodes</div>
+              <div class="showcase-stat">Screenplay</div>
             </div>
-            <div class="repo-stat">⭐ 6.9k stars</div>
-            <div class="repo-stat">🔀 512 forks</div>
-            <div class="repo-stat">Updated 3 hours ago</div>
-          </div>
-        </div>
-
-        <div class="repo-item">
-          <div class="repo-header-row">
-            <div class="repo-icon">🎬</div>
-            <a href="#" class="repo-name">aicoder/scifi-anthology</a>
-            <span class="repo-badge ai">AI Script</span>
-          </div>
-          <div class="repo-desc">Science fiction anthology series with 5 standalone stories exploring AI, consciousness, and humanity</div>
-          <div class="repo-footer">
-            <div class="repo-stat">
-              <span class="language-color" style="background-color: #a371f7;"></span>
-              Screenplay
-            </div>
-            <div class="repo-stat">⭐ 3.4k stars</div>
-            <div class="repo-stat">🔀 289 forks</div>
-            <div class="repo-stat">Updated 2 days ago</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Pricing Section -->
-  <section class="pricing-section" id="pricing">
+  <!-- CTA Section -->
+  <section class="cta-section">
     <div class="container">
-      <h2 class="section-title">Simple, Transparent Pricing</h2>
-      <p style="text-align: center; color: var(--text-secondary); margin-bottom: 48px; font-size: 16px;">
-        Choose the plan that works for you. All plans include full access to code and script generation.
-      </p>
-
-      <div class="pricing-grid">
-        <div class="pricing-card">
-          <div class="pricing-name">Starter</div>
-          <div class="pricing-price">Free</div>
-          <div class="pricing-desc">Perfect for learning and small projects</div>
-          <ul class="pricing-features">
-            <li>5 AI code generations/day</li>
-            <li>2 screenplay pages/month</li>
-            <li>Public repositories only</li>
-            <li>Community support</li>
-          </ul>
-          <button class="btn btn-large secondary" style="width: 100%;">Get started</button>
-        </div>
-
-        <div class="pricing-card featured">
-          <div class="pricing-name">Professional</div>
-          <div class="pricing-price">$29<span style="font-size: 16px;">/mo</span></div>
-          <div class="pricing-desc">For developers and writers</div>
-          <ul class="pricing-features">
-            <li>Unlimited AI code generations</li>
-            <li>Unlimited screenplay pages</li>
-            <li>Public & private repositories</li>
-            <li>Advanced code review</li>
-            <li>Script formatting & export</li>
-            <li>Priority support</li>
-          </ul>
-          <button class="btn btn-large primary" style="width: 100%;">Start free trial</button>
-        </div>
-
-        <div class="pricing-card">
-          <div class="pricing-name">Studio</div>
-          <div class="pricing-price">$99<span style="font-size: 16px;">/mo</span></div>
-          <div class="pricing-desc">For teams and production companies</div>
-          <ul class="pricing-features">
-            <li>Everything in Professional</li>
-            <li>Team collaboration (10 seats)</li>
-            <li>Advanced AI models</li>
-            <li>Custom integrations</li>
-            <li>Dedicated account manager</li>
-            <li>24/7 priority support</li>
-          </ul>
-          <button class="btn btn-large secondary" style="width: 100%;">Contact sales</button>
-        </div>
+      <div class="cta-content">
+        <h2>Ready to Create Your Masterpiece?</h2>
+        <p>Join 100,000+ developers and writers building the future of code and cinema. Start free today, no credit card required.</p>
+        <button class="btn-hero gold" style="margin: 0 auto;">🚀 Launch AICoder Studio Now</button>
       </div>
     </div>
   </section>
@@ -1157,25 +1373,27 @@
           <h4>Product</h4>
           <a href="#">Features</a>
           <a href="#">Pricing</a>
-          <a href="#">Security</a>
           <a href="#">Enterprise</a>
+          <a href="#">Security</a>
           <a href="#">Status</a>
         </div>
 
         <div class="footer-section">
-          <h4>Studio</h4>
-          <a href="#">Screenwriting</a>
-          <a href="#">Script Examples</a>
-          <a href="#">Formatting Guide</a>
-          <a href="#">Resources</a>
+          <h4>Development</h4>
+          <a href="#">Code Editor</a>
+          <a href="#">API</a>
+          <a href="#">Integrations</a>
+          <a href="#">Documentation</a>
+          <a href="#">GitHub</a>
         </div>
 
         <div class="footer-section">
-          <h4>Developers</h4>
-          <a href="#">Documentation</a>
-          <a href="#">API Reference</a>
-          <a href="#">GitHub</a>
-          <a href="#">Community</a>
+          <h4>Screenwriting</h4>
+          <a href="#">Screenplay Editor</a>
+          <a href="#">Export Formats</a>
+          <a href="#">Story Resources</a>
+          <a href="#">Industry Links</a>
+          <a href="#">Gallery</a>
         </div>
 
         <div class="footer-section">
@@ -1184,14 +1402,15 @@
           <a href="#">Blog</a>
           <a href="#">Careers</a>
           <a href="#">Press</a>
+          <a href="#">Contact</a>
         </div>
       </div>
 
       <div class="footer-bottom">
-        © 2026 AICoder, Inc. All rights reserved. • 
-        <a href="#" style="color: var(--text-secondary);">Terms</a> • 
-        <a href="#" style="color: var(--text-secondary);">Privacy</a> • 
-        <a href="#" style="color: var(--text-secondary);">Security</a>
+        © 2026 AICoder Studio. All rights reserved. | 
+        <a href="#">Terms of Service</a> • 
+        <a href="#">Privacy Policy</a> • 
+        <a href="#">Security</a>
       </div>
     </div>
   </footer>
