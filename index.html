@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AICoder · GitHub + Movie Studio + Screenwriting Workspace</title>
+  <title>AICoder Studio · Code + Cinema Dashboard</title>
   <style>
     :root {
       --bg-primary: #0d1117;
       --bg-secondary: #161b22;
       --bg-tertiary: #21262d;
+      --bg-hover: #262c36;
       --border-default: #30363d;
       --border-muted: #21262d;
       --text-primary: #c9d1d9;
@@ -18,9 +19,9 @@
       --accent-green: #238636;
       --accent-red: #da3633;
       --accent-purple: #d2a8ff;
-      --accent-gold: #d29922;
+      --accent-gold: #ffd700;
+      --accent-gold-light: #ffed4e;
       --link-color: #58a6ff;
-      --cinema-gold: #ffd700;
     }
 
     * {
@@ -43,9 +44,11 @@
     a {
       color: var(--link-color);
       text-decoration: none;
+      transition: color 0.2s;
     }
 
     a:hover {
+      color: var(--accent-gold);
       text-decoration: underline;
     }
 
@@ -55,28 +58,29 @@
       transition: all 0.2s ease;
     }
 
-    /* Header / Navbar */
+    /* ============ HEADER ============ */
     .Header {
-      background-color: rgba(13, 17, 23, 0.95);
+      background-color: rgba(13, 17, 23, 0.97);
       border-bottom: 1px solid var(--border-default);
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
 
     .Header-wrapper {
-      max-width: 1400px;
+      max-width: 100%;
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
       height: 64px;
-      padding: 0 24px;
+      padding: 0 16px;
+      gap: 16px;
     }
 
-    .Header-link {
+    .Header-logo {
       display: flex;
       align-items: center;
       color: var(--text-primary);
@@ -85,17 +89,13 @@
       font-size: 18px;
       letter-spacing: -0.3px;
       gap: 10px;
-    }
-
-    .Header-link:hover {
-      color: var(--cinema-gold);
-      text-decoration: none;
+      white-space: nowrap;
     }
 
     .logo-icon {
       width: 36px;
       height: 36px;
-      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-light) 100%);
       border-radius: 8px;
       display: flex;
       align-items: center;
@@ -104,42 +104,39 @@
       font-size: 20px;
       color: #0d1117;
       box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+      flex-shrink: 0;
+    }
+
+    .Header-logo:hover {
+      color: var(--accent-gold);
+      text-decoration: none;
     }
 
     .Header-nav {
       display: flex;
       align-items: center;
-      gap: 32px;
+      gap: 24px;
       flex: 1;
-      margin-left: 48px;
     }
 
     .Header-nav-item {
       color: var(--text-secondary);
       font-size: 13px;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      transition: all 0.2s;
+      transition: color 0.2s;
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
     .Header-nav-item:hover {
-      color: var(--cinema-gold);
+      color: var(--accent-gold);
       text-decoration: none;
-    }
-
-    .Header-nav-item.active {
-      color: var(--cinema-gold);
-      border-bottom: 2px solid var(--cinema-gold);
-      padding-bottom: 6px;
     }
 
     .Header-search {
       flex: 1;
-      max-width: 320px;
+      max-width: 280px;
       display: flex;
       align-items: center;
       background-color: var(--bg-secondary);
@@ -152,7 +149,7 @@
     }
 
     .Header-search:focus-within {
-      border-color: var(--cinema-gold);
+      border-color: var(--accent-gold);
       box-shadow: 0 0 12px rgba(255, 215, 0, 0.15);
     }
 
@@ -173,8 +170,8 @@
     .Header-actions {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-left: 24px;
+      gap: 8px;
+      margin-left: auto;
     }
 
     .btn {
@@ -191,199 +188,431 @@
 
     .btn:hover {
       background-color: var(--bg-tertiary);
-      border-color: var(--cinema-gold);
-      color: var(--cinema-gold);
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #ffd700, #ffed4e);
-      border-color: #ffd700;
+      background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-light));
+      border-color: var(--accent-gold);
       color: #0d1117;
       font-weight: 700;
     }
 
     .btn-primary:hover {
-      background: linear-gradient(135deg, #ffed4e, #ffff99);
+      background: linear-gradient(135deg, var(--accent-gold-light), white);
       box-shadow: 0 8px 24px rgba(255, 215, 0, 0.3);
       transform: translateY(-2px);
     }
 
-    /* Main Container */
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* Cinematic Hero */
-    .hero-section {
-      position: relative;
-      background: linear-gradient(135deg, rgba(13, 17, 23, 0.8) 0%, rgba(33, 38, 45, 0.4) 50%, rgba(13, 17, 23, 0.8) 100%);
-      border-bottom: 2px solid var(--cinema-gold);
-      padding: 120px 0 80px;
-      overflow: hidden;
-    }
-
-    .hero-section::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="film" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="%23161b22"/><circle cx="10" cy="10" r="3" fill="%231f6feb" opacity="0.3"/><circle cx="50" cy="10" r="3" fill="%231f6feb" opacity="0.3"/><circle cx="10" cy="50" r="3" fill="%231f6feb" opacity="0.3"/><circle cx="50" cy="50" r="3" fill="%231f6feb" opacity="0.3"/></pattern></defs><rect width="1200" height="600" fill="url(%23film)"/></svg>') repeat;
-      opacity: 0.03;
-      z-index: 0;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-    }
-
-    .hero-copy h1 {
-      font-size: 64px;
-      font-weight: 900;
-      line-height: 1.15;
-      letter-spacing: -1px;
-      margin-bottom: 24px;
-      color: var(--text-primary);
-      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    }
-
-    .hero-copy h1 .code-text {
-      color: #58a6ff;
-      background: linear-gradient(90deg, #58a6ff 0%, #79c0ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-copy h1 .cinema-text {
-      color: var(--cinema-gold);
-      background: linear-gradient(90deg, #ffd700 0%, #ffed4e 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-copy p {
-      font-size: 18px;
-      color: var(--text-secondary);
-      line-height: 1.8;
-      margin-bottom: 32px;
-      max-width: 520px;
-    }
-
-    .hero-cta {
+    /* ============ MAIN LAYOUT ============ */
+    .main-container {
       display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
+      min-height: calc(100vh - 64px);
     }
 
-    .btn-hero {
-      padding: 14px 32px;
-      font-size: 14px;
+    .sidebar {
+      width: 260px;
+      background-color: var(--bg-secondary);
+      border-right: 1px solid var(--border-default);
+      padding: 16px 0;
+      overflow-y: auto;
+      position: sticky;
+      top: 64px;
+      height: calc(100vh - 64px);
+    }
+
+    .sidebar-section {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .sidebar-section:last-child {
+      border-bottom: none;
+    }
+
+    .sidebar-title {
+      padding: 0 16px;
+      font-size: 11px;
       font-weight: 700;
-      border-radius: 8px;
-      display: inline-flex;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .sidebar-item {
+      padding: 8px 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      display: flex;
       align-items: center;
       gap: 10px;
-      transition: all 0.3s;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .btn-hero.gold {
-      background: linear-gradient(135deg, #ffd700, #ffed4e);
-      border: 2px solid #ffd700;
-      color: #0d1117;
-      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.25);
+    .sidebar-item:hover {
+      background-color: var(--bg-tertiary);
+      color: var(--accent-gold);
     }
 
-    .btn-hero.gold:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(255, 215, 0, 0.35);
+    .sidebar-item.active {
+      background-color: rgba(255, 215, 0, 0.1);
+      color: var(--accent-gold);
+      border-left: 3px solid var(--accent-gold);
+      padding-left: 13px;
     }
 
-    .btn-hero.blue {
-      background: rgba(88, 166, 255, 0.1);
-      border: 2px solid #58a6ff;
+    .sidebar-icon {
+      min-width: 18px;
+      text-align: center;
+    }
+
+    /* ============ CONTENT AREA ============ */
+    .content {
+      flex: 1;
+      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+      overflow-y: auto;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+
+    /* ============ DASHBOARD HERO ============ */
+    .dashboard-hero {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.05) 0%, rgba(88, 166, 255, 0.05) 100%);
+      border: 1px solid var(--border-default);
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .dashboard-hero h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .dashboard-hero p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .dashboard-hero-stats {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-stat-number {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent-gold);
+    }
+
+    .hero-stat-label {
+      font-size: 11px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* ============ GRID LAYOUT ============ */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .panel {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+
+    .panel:hover {
+      border-color: var(--accent-gold);
+      background-color: var(--bg-hover);
+      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.08);
+    }
+
+    .panel-header {
+      background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-default);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .panel-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-icon {
+      font-size: 18px;
+    }
+
+    .panel-action {
+      font-size: 12px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .panel-action:hover {
+      color: var(--accent-gold);
+    }
+
+    .panel-body {
+      padding: 20px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    /* ============ ITEMS IN PANELS ============ */
+    .item-row {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s;
+    }
+
+    .item-row:last-child {
+      border-bottom: none;
+    }
+
+    .item-row:hover {
+      background-color: var(--bg-tertiary);
+      padding: 12px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .item-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--link-color);
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .item-name:hover {
+      color: var(--accent-gold);
+      text-decoration: underline;
+    }
+
+    .item-badge {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .item-badge.code {
+      background: rgba(88, 166, 255, 0.15);
       color: #58a6ff;
     }
 
-    .btn-hero.blue:hover {
-      background: rgba(88, 166, 255, 0.2);
-      box-shadow: 0 8px 24px rgba(88, 166, 255, 0.2);
+    .item-badge.script {
+      background: rgba(255, 215, 0, 0.15);
+      color: var(--accent-gold);
     }
 
-    .hero-stats {
-      display: flex;
-      gap: 40px;
-      flex-wrap: wrap;
-      padding-top: 24px;
-      border-top: 1px solid rgba(255, 215, 0, 0.2);
+    .item-badge.featured {
+      background: rgba(35, 134, 54, 0.2);
+      color: #3fb950;
     }
 
-    .stat-item {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .stat-number {
-      font-size: 28px;
-      font-weight: 900;
-      color: var(--cinema-gold);
-      margin-bottom: 4px;
-    }
-
-    .stat-label {
+    /* ============ ACTIVITY FEED ============ */
+    .activity-item {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-muted);
       font-size: 12px;
       color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
     }
 
-    /* Hero Mockup - Dual Workspace */
-    .hero-mockup-container {
-      position: relative;
-      perspective: 1000px;
+    .activity-item:last-child {
+      border-bottom: none;
     }
 
-    .mockup-card {
+    .activity-icon {
+      font-size: 14px;
+      min-width: 16px;
+      margin-top: 2px;
+    }
+
+    .activity-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .activity-text {
+      word-break: break-word;
+    }
+
+    .activity-text strong {
+      color: var(--text-primary);
+    }
+
+    .activity-time {
+      color: var(--text-tertiary);
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    /* ============ SHOWCASE SECTION ============ */
+    .showcase-section {
+      margin-bottom: 32px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .section-header h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .section-header-link {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .showcase-card {
       background-color: var(--bg-secondary);
-      border: 2px solid var(--border-default);
+      border: 1px solid var(--border-default);
       border-radius: 12px;
-      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
       overflow: hidden;
-      transition: all 0.3s;
+      transition: all 0.2s;
+      cursor: pointer;
     }
 
-    .mockup-card:hover {
-      border-color: var(--cinema-gold);
-      box-shadow: 0 32px 64px rgba(255, 215, 0, 0.15);
+    .showcase-card:hover {
+      border-color: var(--accent-gold);
+      background-color: var(--bg-hover);
+      box-shadow: 0 12px 32px rgba(255, 215, 0, 0.1);
       transform: translateY(-4px);
     }
 
-    .mockup-header {
+    .showcase-card-header {
       background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      padding: 16px 20px;
       border-bottom: 1px solid var(--border-default);
-      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .showcase-card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .showcase-card-body {
+      padding: 16px 20px;
+    }
+
+    .showcase-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .showcase-stats {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    /* ============ WORKSPACE EDITOR PREVIEW ============ */
+    .editor-preview {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .editor-header {
+      background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-default);
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .mockup-tabs {
+    .editor-tabs {
       display: flex;
       gap: 12px;
-      flex: 1;
     }
 
-    .mockup-tab {
+    .editor-tab {
       font-size: 11px;
       color: var(--text-secondary);
       border-bottom: 2px solid transparent;
@@ -394,12 +623,12 @@
       text-transform: uppercase;
     }
 
-    .mockup-tab.active {
-      color: var(--cinema-gold);
-      border-bottom-color: var(--cinema-gold);
+    .editor-tab.active {
+      color: var(--accent-gold);
+      border-bottom-color: var(--accent-gold);
     }
 
-    .mockup-body {
+    .editor-body {
       padding: 20px;
       background-color: var(--bg-secondary);
       font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
@@ -407,7 +636,8 @@
       color: #79c0ff;
       line-height: 1.8;
       overflow-x: auto;
-      height: 300px;
+      max-height: 350px;
+      overflow-y: auto;
     }
 
     .code-line {
@@ -443,26 +673,12 @@
       color: #8b949e;
     }
 
-    .screenplay-line {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 4px;
-    }
-
-    .screenplay-number {
-      color: var(--text-tertiary);
-      user-select: none;
-      min-width: 32px;
-      text-align: right;
-    }
-
     .screenplay-content {
-      flex: 1;
-      color: #ffed4e;
+      color: var(--accent-gold-light);
     }
 
     .scene-heading {
-      color: #ffd700;
+      color: var(--accent-gold);
       font-weight: 700;
       text-transform: uppercase;
     }
@@ -470,422 +686,76 @@
     .character {
       color: #d2a8ff;
       font-weight: 700;
+      margin-top: 8px;
     }
 
     .parenthetical {
       color: #a5d6ff;
       font-style: italic;
+      margin-left: 16px;
     }
 
     .action {
       color: #79c0ff;
+      margin-top: 4px;
     }
 
-    /* Dashboard Section */
-    .dashboard-section {
-      padding: 80px 0;
-      border-bottom: 1px solid var(--border-default);
-      background: rgba(22, 27, 34, 0.3);
-    }
-
-    .section-title {
-      font-size: 36px;
-      font-weight: 900;
-      margin-bottom: 48px;
-      letter-spacing: -0.8px;
-      color: var(--text-primary);
-    }
-
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-      margin-bottom: 40px;
-    }
-
-    .dashboard-panel {
-      background-color: var(--bg-secondary);
-      border: 1px solid var(--border-default);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: all 0.3s;
-    }
-
-    .dashboard-panel:hover {
-      border-color: var(--cinema-gold);
-      background-color: var(--bg-tertiary);
-    }
-
-    .panel-header {
-      background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border-default);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .panel-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .panel-icon {
-      font-size: 18px;
-    }
-
-    .panel-body {
-      padding: 20px;
-    }
-
-    .repo-item {
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border-muted);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .repo-item:last-child {
-      border-bottom: none;
-    }
-
-    .repo-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: #58a6ff;
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-
-    .repo-name:hover {
-      color: var(--cinema-gold);
-    }
-
-    .repo-type {
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-    }
-
-    .repo-type.code {
-      background: rgba(88, 166, 255, 0.15);
-      color: #58a6ff;
-    }
-
-    .repo-type.script {
-      background: rgba(255, 215, 0, 0.15);
-      color: var(--cinema-gold);
-    }
-
-    .activity-feed {
-      list-style: none;
-    }
-
-    .activity-item {
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border-muted);
-      font-size: 12px;
-      color: var(--text-secondary);
-      display: flex;
-      gap: 8px;
-    }
-
-    .activity-item:last-child {
-      border-bottom: none;
-    }
-
-    .activity-icon {
-      font-size: 14px;
-      min-width: 16px;
-    }
-
-    .activity-text {
-      flex: 1;
-    }
-
-    .activity-text strong {
-      color: var(--text-primary);
-    }
-
-    .activity-time {
-      color: var(--text-tertiary);
-      white-space: nowrap;
-      font-size: 11px;
-    }
-
-    /* Features Grid */
-    .features-section {
-      padding: 80px 0;
-      border-bottom: 1px solid var(--border-default);
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .feature-card {
-      padding: 32px 24px;
-      border: 1px solid var(--border-default);
-      border-radius: 12px;
-      background-color: var(--bg-secondary);
-      transition: all 0.3s;
-      text-align: center;
-    }
-
-    .feature-card:hover {
-      background-color: var(--bg-tertiary);
-      border-color: var(--cinema-gold);
-      transform: translateY(-4px);
-    }
-
-    .feature-icon {
-      font-size: 48px;
-      margin-bottom: 16px;
-    }
-
-    .feature-card h3 {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--text-primary);
-    }
-
-    .feature-card p {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      margin: 0;
-    }
-
-    /* Workspace Section */
-    .workspace-section {
-      padding: 80px 0;
-      border-bottom: 1px solid var(--border-default);
-    }
-
-    .workspace-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-    }
-
-    .workspace-item {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .workspace-icon {
-      font-size: 64px;
-      margin-bottom: 24px;
-    }
-
-    .workspace-item h3 {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      color: var(--text-primary);
-    }
-
-    .workspace-item p {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.8;
-      margin-bottom: 20px;
-    }
-
-    .feature-list {
-      list-style: none;
-      font-size: 13px;
-      color: var(--text-secondary);
-    }
-
-    .feature-list li {
-      padding: 8px 0;
-      display: flex;
-      gap: 8px;
-    }
-
-    .feature-list li:before {
-      content: "→";
-      color: var(--cinema-gold);
-      font-weight: 700;
-      min-width: 16px;
-    }
-
-    /* Showcase Grid */
-    .showcase-section {
-      padding: 80px 0;
-      border-bottom: 1px solid var(--border-default);
-    }
-
-    .showcase-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-      margin-bottom: 40px;
-    }
-
-    .showcase-card {
-      background-color: var(--bg-secondary);
-      border: 1px solid var(--border-default);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: all 0.3s;
-      cursor: pointer;
-    }
-
-    .showcase-card:hover {
-      border-color: var(--cinema-gold);
-      box-shadow: 0 16px 40px rgba(255, 215, 0, 0.1);
-      transform: translateY(-4px);
-    }
-
-    .showcase-header {
-      background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border-default);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .showcase-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-primary);
-      flex: 1;
-    }
-
-    .showcase-badge {
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 12px;
-      font-weight: 600;
-      background: rgba(255, 215, 0, 0.15);
-      color: var(--cinema-gold);
-    }
-
-    .showcase-body {
-      padding: 20px;
-    }
-
-    .showcase-desc {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      margin-bottom: 16px;
-    }
-
-    .showcase-stats {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      font-size: 12px;
-      color: var(--text-tertiary);
-    }
-
-    .showcase-stat {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    /* CTA Section */
-    .cta-section {
-      padding: 80px 0;
-      border-bottom: 1px solid var(--border-default);
-      text-align: center;
-    }
-
-    .cta-content h2 {
-      font-size: 48px;
-      font-weight: 900;
-      margin-bottom: 24px;
-      letter-spacing: -0.8px;
-    }
-
-    .cta-content p {
-      font-size: 18px;
-      color: var(--text-secondary);
-      margin-bottom: 40px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /* Footer */
+    /* ============ FOOTER ============ */
     .footer {
       background-color: var(--bg-secondary);
-      border-top: 2px solid var(--cinema-gold);
-      padding: 60px 0;
-      font-size: 12px;
-      color: var(--text-secondary);
+      border-top: 1px solid var(--border-default);
+      padding: 32px 24px;
+      margin-top: 48px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .footer-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 40px;
-      margin-bottom: 40px;
+      gap: 32px;
+      margin-bottom: 24px;
     }
 
     .footer-section h4 {
       color: var(--text-primary);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     .footer-section a {
       display: block;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       color: var(--text-secondary);
       font-size: 12px;
       transition: color 0.2s;
     }
 
     .footer-section a:hover {
-      color: var(--cinema-gold);
+      color: var(--accent-gold);
     }
 
     .footer-bottom {
       border-top: 1px solid var(--border-default);
-      padding-top: 24px;
+      padding-top: 16px;
       text-align: center;
+      font-size: 12px;
+      color: var(--text-tertiary);
     }
 
-    /* Responsive */
-    @media (max-width: 1024px) {
-      .hero-content {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-
-      .hero-copy h1 {
-        font-size: 44px;
-      }
-
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 1200px) {
       .dashboard-grid {
         grid-template-columns: 1fr;
       }
 
-      .features-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .workspace-grid {
+      .showcase-grid {
         grid-template-columns: 1fr;
       }
 
@@ -895,32 +765,50 @@
     }
 
     @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-default);
+        position: relative;
+        top: 0;
+        padding: 12px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 8px;
+      }
+
+      .sidebar-section {
+        padding: 0;
+        border-bottom: none;
+        grid-column: auto;
+      }
+
+      .sidebar-title {
+        display: none;
+      }
+
+      .sidebar-item {
+        padding: 8px;
+        font-size: 12px;
+        justify-content: center;
+        text-align: center;
+      }
+
       .Header-nav {
         display: none;
       }
 
       .Header-search {
-        display: none;
+        max-width: 200px;
       }
 
-      .hero-copy h1 {
-        font-size: 32px;
-      }
-
-      .hero-copy p {
-        font-size: 16px;
-      }
-
-      .features-grid {
+      .dashboard-grid {
         grid-template-columns: 1fr;
-      }
-
-      .showcase-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .cta-content h2 {
-        font-size: 32px;
       }
 
       .footer-grid {
@@ -933,16 +821,16 @@
   <!-- Header -->
   <header class="Header">
     <div class="Header-wrapper">
-      <a href="#" class="Header-link">
+      <a href="#" class="Header-logo">
         <div class="logo-icon">▶</div>
         <span>AICoder Studio</span>
       </a>
 
       <nav class="Header-nav">
-        <a href="#dashboard" class="Header-nav-item active">🖥️ Dashboard</a>
-        <a href="#workspace" class="Header-nav-item">✍️ Workspace</a>
-        <a href="#showcase" class="Header-nav-item">🎬 Showcase</a>
-        <a href="#docs" class="Header-nav-item">📚 Docs</a>
+        <span class="Header-nav-item">💻 Code Repos</span>
+        <span class="Header-nav-item">🎬 Scripts</span>
+        <span class="Header-nav-item">🔀 Workflows</span>
+        <span class="Header-nav-item">📚 Docs</span>
       </nav>
 
       <div class="Header-search">
@@ -952,467 +840,531 @@
 
       <div class="Header-actions">
         <button class="btn">Sign in</button>
-        <button class="btn btn-primary">Start free</button>
+        <button class="btn btn-primary">Launch Studio</button>
       </div>
     </div>
   </header>
 
-  <!-- Cinematic Hero -->
-  <section class="hero-section">
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-copy">
-          <h1>
-            <span class="code-text">Code</span> + <span class="cinema-text">Cinema</span>
-            <br />Unified Creation
-          </h1>
-          <p>
-            AICoder Studio merges GitHub-style code repositories with professional screenwriting workspaces. Build software and craft award-winning scripts in one powerful platform.
-          </p>
-
-          <div class="hero-cta">
-            <button class="btn-hero gold">🚀 Launch Studio</button>
-            <button class="btn-hero blue">📹 Watch Demo</button>
-          </div>
-
-          <div class="hero-stats">
-            <div class="stat-item">
-              <span class="stat-number">100K+</span>
-              <span class="stat-label">Developers & Writers</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">50M+</span>
-              <span class="stat-label">Code Repositories</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">12K+</span>
-              <span class="stat-label">Produced Scripts</span>
-            </div>
-          </div>
+  <!-- Main Layout -->
+  <div class="main-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <!-- Repositories -->
+      <div class="sidebar-section">
+        <div class="sidebar-title">💻 Code Repositories</div>
+        <div class="sidebar-item active">
+          <span class="sidebar-icon">📦</span>
+          <span>ai-saas-platform</span>
         </div>
-
-        <div class="hero-mockup-container">
-          <div class="mockup-card">
-            <div class="mockup-header">
-              <div class="mockup-tabs">
-                <div class="mockup-tab active">🖥️ Code</div>
-                <div class="mockup-tab">✍️ Script</div>
-                <div class="mockup-tab">🔀 Sync</div>
-              </div>
-            </div>
-
-            <div class="mockup-body">
-              <div class="code-line">
-                <span class="code-number">1</span>
-                <span class="code-content"><span class="comment">// AI-Powered Full Stack</span></span>
-              </div>
-              <div class="code-line">
-                <span class="code-number">2</span>
-                <span class="code-content"><span class="keyword">const</span> <span class="function">createMasterpiece</span> = () =&gt; {</span>
-              </div>
-              <div class="code-line">
-                <span class="code-number">3</span>
-                <span class="code-content">&nbsp;&nbsp;<span class="keyword">return</span> {</span>
-              </div>
-              <div class="code-line">
-                <span class="code-number">4</span>
-                <span class="code-content">&nbsp;&nbsp;&nbsp;&nbsp;code: <span class="string">"production-ready"</span>,</span>
-              </div>
-              <div class="code-line">
-                <span class="code-number">5</span>
-                <span class="code-content">&nbsp;&nbsp;&nbsp;&nbsp;script: <span class="string">"Oscar-worthy"</span></span>
-              </div>
-              <div class="code-line">
-                <span class="code-number">6</span>
-                <span class="code-content">&nbsp;&nbsp;};</span>
-              </div>
-              <div class="code-line">
-                <span class="code-number">7</span>
-                <span class="code-content">};</span>
-              </div>
-            </div>
-          </div>
+        <div class="sidebar-item">
+          <span class="sidebar-icon">📦</span>
+          <span>streaming-platform</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="sidebar-icon">📦</span>
+          <span>react-studio-ui</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="sidebar-icon">📦</span>
+          <span>backend-api</span>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Dashboard Section -->
-  <section class="dashboard-section" id="dashboard">
-    <div class="container">
-      <h2 class="section-title">Your Studio Dashboard</h2>
+      <!-- Scripts -->
+      <div class="sidebar-section">
+        <div class="sidebar-title">🎬 Script Projects</div>
+        <div class="sidebar-item">
+          <span class="sidebar-icon">🎞️</span>
+          <span>infinity-symbiotes</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="sidebar-icon">🎞️</span>
+          <span>noir-detective-series</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="sidebar-icon">🎞️</span>
+          <span>scifi-anthology-5</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="sidebar-icon">🎞️</span>
+          <span>indie-feature-2025</span>
+        </div>
+      </div>
 
-      <div class="dashboard-grid">
-        <!-- Code Repository Panel -->
-        <div class="dashboard-panel">
-          <div class="panel-header">
-            <div class="panel-title">
-              <span class="panel-icon">💻</span>
-              Recent Code Repositories
+      <!-- Teams & Orgs -->
+      <div class="sidebar-section">
+        <div class="sidebar-title">👥 Teams</div>
+        <div class="sidebar-item">
+          <span class="sidebar-icon">🏢</span>
+          <span>AICoder Team</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="sidebar-icon">🎬</span>
+          <span>Studio Collective</span>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="sidebar-section">
+        <div class="sidebar-title">⚡ Quick Access</div>
+        <div class="sidebar-item">
+          <span class="sidebar-icon">⭐</span>
+          <span>Starred</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="sidebar-icon">👀</span>
+          <span>Watching</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="sidebar-icon">📋</span>
+          <span>Pull Requests</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="sidebar-icon">⚠️</span>
+          <span>Issues</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="content">
+      <div class="container">
+        <!-- Hero Section -->
+        <div class="dashboard-hero">
+          <div>
+            <h1>Welcome back, Creator 🎬</h1>
+            <p>Your unified dashboard for code repositories and screenplay projects</p>
+            <div class="hero-buttons">
+              <button class="btn btn-primary">+ New Repository</button>
+              <button class="btn">+ New Script</button>
+              <button class="btn">+ New Workflow</button>
             </div>
-            <a href="#" style="font-size: 12px; color: var(--text-secondary);">View all →</a>
           </div>
-          <div class="panel-body">
-            <div class="repo-item">
-              <span class="repo-name">aicoder/ai-saas-kit</span>
-              <span class="repo-type code">Code</span>
+          <div class="dashboard-hero-stats">
+            <div class="hero-stat">
+              <div class="hero-stat-number">24</div>
+              <div class="hero-stat-label">Commits</div>
             </div>
-            <div class="repo-item">
-              <span class="repo-name">aicoder/react-studio-ui</span>
-              <span class="repo-type code">Code</span>
+            <div class="hero-stat">
+              <div class="hero-stat-number">12</div>
+              <div class="hero-stat-label">Pull Requests</div>
             </div>
-            <div class="repo-item">
-              <span class="repo-name">aicoder/backend-api</span>
-              <span class="repo-type code">Code</span>
-            </div>
-            <div class="repo-item">
-              <span class="repo-name">aicoder/mobile-app</span>
-              <span class="repo-type code">Code</span>
-            </div>
-            <div class="repo-item">
-              <span class="repo-name">aicoder/deployment-ops</span>
-              <span class="repo-type code">Code</span>
+            <div class="hero-stat">
+              <div class="hero-stat-number">89</div>
+              <div class="hero-stat-label">Pages Written</div>
             </div>
           </div>
         </div>
 
-        <!-- Script Projects Panel -->
-        <div class="dashboard-panel">
-          <div class="panel-header">
-            <div class="panel-title">
-              <span class="panel-icon">🎬</span>
-              Active Script Projects
+        <!-- Main Dashboard Grid -->
+        <div class="dashboard-grid">
+          <!-- Recent Code Repositories -->
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">
+                <span class="panel-icon">💻</span>
+                Recent Repositories
+              </div>
+              <span class="panel-action">View all →</span>
             </div>
-            <a href="#" style="font-size: 12px; color: var(--text-secondary);">View all →</a>
+            <div class="panel-body">
+              <div class="item-row">
+                <span class="item-name">ai-saas-platform</span>
+                <span class="item-badge code">Code</span>
+              </div>
+              <div class="item-row">
+                <span class="item-name">streaming-platform</span>
+                <span class="item-badge code">Code</span>
+              </div>
+              <div class="item-row">
+                <span class="item-name">react-studio-ui</span>
+                <span class="item-badge code">Code</span>
+              </div>
+              <div class="item-row">
+                <span class="item-name">backend-api</span>
+                <span class="item-badge code">Code</span>
+              </div>
+              <div class="item-row">
+                <span class="item-name">mobile-app</span>
+                <span class="item-badge code">Code</span>
+              </div>
+            </div>
           </div>
-          <div class="panel-body">
-            <div class="repo-item">
-              <span class="repo-name">infinity-symbiotes-movie</span>
-              <span class="repo-type script">Script</span>
+
+          <!-- Active Script Projects -->
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">
+                <span class="panel-icon">🎬</span>
+                Active Scripts
+              </div>
+              <span class="panel-action">View all →</span>
             </div>
-            <div class="repo-item">
-              <span class="repo-name">midnight-detective-series</span>
-              <span class="repo-type script">Script</span>
-            </div>
-            <div class="repo-item">
-              <span class="repo-name">scifi-anthology-5</span>
-              <span class="repo-type script">Script</span>
-            </div>
-            <div class="repo-item">
-              <span class="repo-name">indie-feature-2025</span>
-              <span class="repo-type script">Script</span>
-            </div>
-            <div class="repo-item">
-              <span class="repo-name">web-series-pilot</span>
-              <span class="repo-type script">Script</span>
+            <div class="panel-body">
+              <div class="item-row">
+                <span class="item-name">infinity-symbiotes</span>
+                <span class="item-badge script featured">Featured</span>
+              </div>
+              <div class="item-row">
+                <span class="item-name">noir-detective-series</span>
+                <span class="item-badge script">Script</span>
+              </div>
+              <div class="item-row">
+                <span class="item-name">scifi-anthology-5</span>
+                <span class="item-badge script">Script</span>
+              </div>
+              <div class="item-row">
+                <span class="item-name">indie-feature-2025</span>
+                <span class="item-badge script">Script</span>
+              </div>
+              <div class="item-row">
+                <span class="item-name">web-series-pilot</span>
+                <span class="item-badge script">Script</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Activity Feed -->
-        <div class="dashboard-panel">
-          <div class="panel-header">
-            <div class="panel-title">
-              <span class="panel-icon">📊</span>
-              Your Activity
+        <!-- Activity & Insights -->
+        <div class="dashboard-grid">
+          <!-- Recent Activity -->
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">
+                <span class="panel-icon">📊</span>
+                Recent Activity
+              </div>
+              <span class="panel-action">View all →</span>
             </div>
-          </div>
-          <div class="panel-body">
-            <ul class="activity-feed">
-              <li class="activity-item">
+            <div class="panel-body">
+              <div class="activity-item">
                 <span class="activity-icon">📝</span>
-                <span class="activity-text"><strong>Pushed</strong> 12 commits to backend-api</span>
-                <span class="activity-time">2h ago</span>
-              </li>
-              <li class="activity-item">
+                <div class="activity-content">
+                  <div class="activity-text"><strong>Pushed</strong> 12 commits to ai-saas-platform</div>
+                  <div class="activity-time">2 hours ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
                 <span class="activity-icon">🎬</span>
-                <span class="activity-text"><strong>Revised</strong> Act II in symbiotes-movie</span>
-                <span class="activity-time">4h ago</span>
-              </li>
-              <li class="activity-item">
+                <div class="activity-content">
+                  <div class="activity-text"><strong>Revised</strong> Act III in infinity-symbiotes</div>
+                  <div class="activity-time">4 hours ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
                 <span class="activity-icon">✅</span>
-                <span class="activity-text"><strong>Merged</strong> PR #247 in react-ui</span>
-                <span class="activity-time">6h ago</span>
-              </li>
-              <li class="activity-item">
+                <div class="activity-content">
+                  <div class="activity-text"><strong>Merged</strong> PR #247 in react-studio-ui</div>
+                  <div class="activity-time">6 hours ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
                 <span class="activity-icon">💬</span>
-                <span class="activity-text"><strong>Commented</strong> on detective-series</span>
-                <span class="activity-time">1d ago</span>
-              </li>
-              <li class="activity-item">
+                <div class="activity-content">
+                  <div class="activity-text"><strong>Commented</strong> on noir-detective-series</div>
+                  <div class="activity-time">1 day ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
                 <span class="activity-icon">🎞️</span>
-                <span class="activity-text"><strong>Finalized</strong> screenplay format</span>
-                <span class="activity-time">2d ago</span>
-              </li>
-            </ul>
+                <div class="activity-content">
+                  <div class="activity-text"><strong>Exported</strong> screenplay to Final Draft</div>
+                  <div class="activity-time">2 days ago</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Studio Insights -->
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">
+                <span class="panel-icon">📈</span>
+                Studio Stats
+              </div>
+              <span class="panel-action">See more →</span>
+            </div>
+            <div class="panel-body">
+              <div class="activity-item">
+                <span class="activity-icon">💻</span>
+                <div class="activity-content">
+                  <div class="activity-text"><strong>Code Commits</strong> this month</div>
+                  <div class="activity-time" style="color: var(--accent-gold); font-weight: 600;">342 commits</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="activity-icon">🎬</span>
+                <div class="activity-content">
+                  <div class="activity-text"><strong>Screenplay Pages</strong> written</div>
+                  <div class="activity-time" style="color: var(--accent-gold); font-weight: 600;">89 pages</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="activity-icon">🔀</span>
+                <div class="activity-content">
+                  <div class="activity-text"><strong>Pull Requests</strong> completed</div>
+                  <div class="activity-time" style="color: var(--accent-gold); font-weight: 600;">28 merged</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="activity-icon">👥</span>
+                <div class="activity-content">
+                  <div class="activity-text"><strong>Collaborators</strong> active</div>
+                  <div class="activity-time" style="color: var(--accent-gold); font-weight: 600;">12 members</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <span class="activity-icon">🚀</span>
+                <div class="activity-content">
+                  <div class="activity-text"><strong>Deployments</strong> this month</div>
+                  <div class="activity-time" style="color: var(--accent-gold); font-weight: 600;">8 shipped</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Statistics & Insights -->
-        <div class="dashboard-panel">
-          <div class="panel-header">
-            <div class="panel-title">
-              <span class="panel-icon">📈</span>
-              Studio Insights
+        <!-- Workspace Preview Section -->
+        <div class="showcase-section">
+          <div class="section-header">
+            <h2>Your Workspaces</h2>
+            <span class="section-header-link">Open editor →</span>
+          </div>
+
+          <div class="dashboard-grid">
+            <!-- Code Workspace -->
+            <div class="editor-preview">
+              <div class="editor-header">
+                <div class="editor-tabs">
+                  <div class="editor-tab active">💻 app.ts</div>
+                  <div class="editor-tab">🎨 index.css</div>
+                  <div class="editor-tab">📄 README.md</div>
+                </div>
+              </div>
+              <div class="editor-body">
+                <div class="code-line">
+                  <span class="code-number">1</span>
+                  <span class="code-content"><span class="comment">// AICoder - Full Stack</span></span>
+                </div>
+                <div class="code-line">
+                  <span class="code-number">2</span>
+                  <span class="code-content"><span class="keyword">import</span> { createApp } from <span class="string">'vue'</span>;</span>
+                </div>
+                <div class="code-line">
+                  <span class="code-number">3</span>
+                  <span class="code-content"><span class="keyword">import</span> { useMagic } from <span class="string">'./ai'</span>;</span>
+                </div>
+                <div class="code-line">
+                  <span class="code-number">4</span>
+                  <span class="code-content"></span>
+                </div>
+                <div class="code-line">
+                  <span class="code-number">5</span>
+                  <span class="code-content"><span class="keyword">const</span> <span class="function">app</span> = <span class="function">createApp</span>({</span>
+                </div>
+                <div class="code-line">
+                  <span class="code-number">6</span>
+                  <span class="code-content">  <span class="keyword">setup</span>() {</span>
+                </div>
+                <div class="code-line">
+                  <span class="code-number">7</span>
+                  <span class="code-content">    <span class="keyword">const</span> ai = <span class="function">useMagic</span>();</span>
+                </div>
+                <div class="code-line">
+                  <span class="code-number">8</span>
+                  <span class="code-content">    <span class="keyword">return</span> { <span class="string">'production-ready'</span> };</span>
+                </div>
+                <div class="code-line">
+                  <span class="code-number">9</span>
+                  <span class="code-content">  }</span>
+                </div>
+                <div class="code-line">
+                  <span class="code-number">10</span>
+                  <span class="code-content">});</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Screenplay Workspace -->
+            <div class="editor-preview">
+              <div class="editor-header">
+                <div class="editor-tabs">
+                  <div class="editor-tab active">✍️ infinity-symbiotes.scr</div>
+                  <div class="editor-tab">🎬 characters.md</div>
+                  <div class="editor-tab">📋 outline.md</div>
+                </div>
+              </div>
+              <div class="editor-body">
+                <div class="code-line">
+                  <span class="code-number">1</span>
+                  <span class="code-content"><span class="scene-heading">INT. NEON CITY - NIGHT</span></span>
+                </div>
+                <div class="code-line">
+                  <span class="code-number">2</span>
+                  <span class="code-content"></span>
+                </div>
+                <div class="code-line">
+                  <span class="code-number">3</span>
+                  <span class="code-content"><span class="action">Rain hammers the cracked rooftop. ALEX stands at the edge, watching the city pulse with digital light.</span></span>
+                </div>
+                <div class="code-line">
+                  <span class="code-number">4</span>
+                  <span class="code-content"></span>
+                </div>
+                <div class="code-line">
+                  <span class="code-number">5</span>
+                  <span class="code-content"><span class="character">ALEX</span></span>
+                </div>
+                <div class="code-line">
+                  <span class="code-number">6</span>
+                  <span class="code-content"><span class="parenthetical">(into the void)</span></span>
+                </div>
+                <div class="code-line">
+                  <span class="code-number">7</span>
+                  <span class="code-content"><span class="action">They said I wasn't human. They lied.</span></span>
+                </div>
+                <div class="code-line">
+                  <span class="code-number">8</span>
+                  <span class="code-content"></span>
+                </div>
+                <div class="code-line">
+                  <span class="code-number">9</span>
+                  <span class="code-content"><span class="action">The symbiote emerges from their skin—golden, liquid, alive.</span></span>
+                </div>
+                <div class="code-line">
+                  <span class="code-number">10</span>
+                  <span class="code-content"></span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="panel-body">
-            <ul class="activity-feed">
-              <li class="activity-item">
-                <span style="color: var(--text-primary); font-weight: 600;">Code Commits</span>
-                <span class="activity-time">342 this month</span>
-              </li>
-              <li class="activity-item">
-                <span style="color: var(--text-primary); font-weight: 600;">Pages Written</span>
-                <span class="activity-time">89 screenplay pages</span>
-              </li>
-              <li class="activity-item">
-                <span style="color: var(--text-primary); font-weight: 600;">Pull Requests</span>
-                <span class="activity-time">28 completed</span>
-              </li>
-              <li class="activity-item">
-                <span style="color: var(--text-primary); font-weight: 600;">Collaborators</span>
-                <span class="activity-time">12 active</span>
-              </li>
-              <li class="activity-item">
-                <span style="color: var(--text-primary); font-weight: 600;">Production Ready</span>
-                <span class="activity-time">3 deployments</span>
-              </li>
-            </ul>
+        </div>
+
+        <!-- Featured Projects -->
+        <div class="showcase-section">
+          <div class="section-header">
+            <h2>Featured Projects</h2>
+            <span class="section-header-link">Explore more →</span>
+          </div>
+
+          <div class="showcase-grid">
+            <div class="showcase-card">
+              <div class="showcase-card-header">
+                <div class="showcase-card-title">💻 ai-saas-platform</div>
+                <span class="item-badge featured">Featured</span>
+              </div>
+              <div class="showcase-card-body">
+                <div class="showcase-desc">
+                  Complete SaaS application with authentication, Stripe payments, dashboard, and admin panel. Built entirely with AI in 48 hours.
+                </div>
+                <div class="showcase-stats">
+                  <span>⭐ 24.5k</span>
+                  <span>🔀 1.2k</span>
+                  <span>TypeScript</span>
+                  <span>📅 2h ago</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="showcase-card">
+              <div class="showcase-card-header">
+                <div class="showcase-card-title">🎬 infinity-symbiotes-movie</div>
+                <span class="item-badge script featured">Featured</span>
+              </div>
+              <div class="showcase-card-body">
+                <div class="showcase-desc">
+                  Award-winning sci-fi thriller screenplay. 120-page feature film with complex characters, stunning visuals, and mind-bending twists.
+                </div>
+                <div class="showcase-stats">
+                  <span>⭐ 8.9k</span>
+                  <span>📑 120 pages</span>
+                  <span>Screenplay</span>
+                  <span>📅 4h ago</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="showcase-card">
+              <div class="showcase-card-header">
+                <div class="showcase-card-title">💻 streaming-platform</div>
+                <span class="item-badge code">Code</span>
+              </div>
+              <div class="showcase-card-body">
+                <div class="showcase-desc">
+                  Netflix-scale streaming platform. Video transcoding, adaptive bitrate, personalized recommendations. Handles 10M+ concurrent users.
+                </div>
+                <div class="showcase-stats">
+                  <span>⭐ 18.3k</span>
+                  <span>🔀 892</span>
+                  <span>Python + Go</span>
+                  <span>📅 1d ago</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="showcase-card">
+              <div class="showcase-card-header">
+                <div class="showcase-card-title">🎬 noir-detective-series</div>
+                <span class="item-badge script">Script</span>
+              </div>
+              <div class="showcase-card-body">
+                <div class="showcase-desc">
+                  10-episode TV series bible for "Midnight Cases" detective thriller. Complete character bios, episode outlines, series arc.
+                </div>
+                <div class="showcase-stats">
+                  <span>⭐ 5.2k</span>
+                  <span>📑 10 eps</span>
+                  <span>Screenplay</span>
+                  <span>📅 2d ago</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-grid">
+            <div class="footer-section">
+              <h4>Product</h4>
+              <a href="#">Features</a>
+              <a href="#">Pricing</a>
+              <a href="#">Enterprise</a>
+              <a href="#">Security</a>
+            </div>
+            <div class="footer-section">
+              <h4>Development</h4>
+              <a href="#">Code Editor</a>
+              <a href="#">API Docs</a>
+              <a href="#">Integrations</a>
+              <a href="#">GitHub</a>
+            </div>
+            <div class="footer-section">
+              <h4>Screenwriting</h4>
+              <a href="#">Screenplay Editor</a>
+              <a href="#">Resources</a>
+              <a href="#">Gallery</a>
+              <a href="#">Export Formats</a>
+            </div>
+            <div class="footer-section">
+              <h4>Company</h4>
+              <a href="#">About</a>
+              <a href="#">Blog</a>
+              <a href="#">Careers</a>
+              <a href="#">Contact</a>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            © 2026 AICoder Studio. Code + Cinema United. | 
+            <a href="#">Terms</a> • 
+            <a href="#">Privacy</a> • 
+            <a href="#">Security</a>
+          </div>
+        </div>
+      </footer>
     </div>
-  </section>
-
-  <!-- Features Section -->
-  <section class="features-section">
-    <div class="container">
-      <h2 class="section-title">Unified Feature Set</h2>
-
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">🔀</div>
-          <h3>Git-Like Version Control</h3>
-          <p>Track every revision of code AND scripts. Branch, merge, and collaborate seamlessly on both development and screenwriting.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">🤖</div>
-          <h3>AI Code & Story Generation</h3>
-          <p>Generate complete applications and full screenplays. Get production-ready code and Oscar-worthy scripts in seconds.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">🎭</div>
-          <h3>Dual Workspace</h3>
-          <p>Switch seamlessly between code editor and screenplay writer. Work on interconnected projects simultaneously.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">📊</div>
-          <h3>Smart Code Review</h3>
-          <p>AI-powered PR reviews for code. Advanced story feedback for scripts with plot consistency checks.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">🎬</div>
-          <h3>Professional Export</h3>
-          <p>Export code with auto-deployment. Export scripts in Final Draft, PDF, or industry-standard formats.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">🤝</div>
-          <h3>Real-Time Collaboration</h3>
-          <p>Work with developers AND writers simultaneously. See live edits, comments, and version history in real-time.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Workspace Section -->
-  <section class="workspace-section" id="workspace">
-    <div class="container">
-      <h2 class="section-title">Integrated Workspaces</h2>
-
-      <div class="workspace-grid">
-        <!-- Code Workspace -->
-        <div class="workspace-item">
-          <div class="workspace-icon">💻</div>
-          <h3>Developer Workspace</h3>
-          <p>
-            A full-featured IDE integrated with GitHub, featuring AI-powered code generation, intelligent auto-completion, and seamless deployment pipelines. Write, test, and deploy with confidence.
-          </p>
-          <ul class="feature-list">
-            <li>Multi-language support (TypeScript, Python, Go, Rust, etc.)</li>
-            <li>Real-time collaboration & pair programming</li>
-            <li>Automated testing & quality assurance</li>
-            <li>One-click deployment to cloud</li>
-            <li>Performance monitoring & debugging</li>
-            <li>Security scanning & vulnerability fixes</li>
-          </ul>
-        </div>
-
-        <!-- Screenplay Workspace -->
-        <div class="workspace-item">
-          <div class="workspace-icon">✍️</div>
-          <h3>Screenwriting Workspace</h3>
-          <p>
-            A professional screenplay editor built for screenwriters. AI-assisted story development, character arcs, dialogue refinement, and industry-standard formatting. Create production-ready scripts.
-          </p>
-          <ul class="feature-list">
-            <li>Final Draft & industry-standard formatting</li>
-            <li>AI story structure & plot suggestions</li>
-            <li>Character development & dialogue assistance</li>
-            <li>Revision tracking & version history</li>
-            <li>Collaboration notes & director feedback</li>
-            <li>Export to PDF, HTML, or production formats</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Showcase Section -->
-  <section class="showcase-section" id="showcase">
-    <div class="container">
-      <h2 class="section-title">Studio Showcase</h2>
-
-      <div class="showcase-grid">
-        <!-- Code Project -->
-        <div class="showcase-card">
-          <div class="showcase-header">
-            <span class="showcase-title">💻 ai-saas-platform</span>
-            <span class="showcase-badge">Featured</span>
-          </div>
-          <div class="showcase-body">
-            <div class="showcase-desc">
-              Complete SaaS application: Authentication, Stripe payments, user dashboard, analytics, and admin panel. Built entirely with AI assistance in 48 hours.
-            </div>
-            <div class="showcase-stats">
-              <div class="showcase-stat">⭐ 24.5k stars</div>
-              <div class="showcase-stat">🔀 1.2k forks</div>
-              <div class="showcase-stat">TypeScript</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Script Project -->
-        <div class="showcase-card">
-          <div class="showcase-header">
-            <span class="showcase-title">🎬 infinity-symbiotes-movie</span>
-            <span class="showcase-badge">Oscar-Bound</span>
-          </div>
-          <div class="showcase-body">
-            <div class="showcase-desc">
-              Award-winning sci-fi thriller screenplay. 120-page feature film with complex character development, stunning visuals, and mind-bending plot twists. Ready for production.
-            </div>
-            <div class="showcase-stats">
-              <div class="showcase-stat">⭐ 8.9k stars</div>
-              <div class="showcase-stat">📑 120 pages</div>
-              <div class="showcase-stat">Screenplay</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Code Project 2 -->
-        <div class="showcase-card">
-          <div class="showcase-header">
-            <span class="showcase-title">💻 streaming-platform</span>
-            <span class="showcase-badge">Production</span>
-          </div>
-          <div class="showcase-body">
-            <div class="showcase-desc">
-              Netflix-scale streaming platform. Video transcoding, adaptive bitrate streaming, personalized recommendations, and 4K support. Handles 10M+ concurrent users.
-            </div>
-            <div class="showcase-stats">
-              <div class="showcase-stat">⭐ 18.3k stars</div>
-              <div class="showcase-stat">🔀 892 forks</div>
-              <div class="showcase-stat">Python + Go</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Script Project 2 -->
-        <div class="showcase-card">
-          <div class="showcase-header">
-            <span class="showcase-title">🎬 noir-detective-series</span>
-            <span class="showcase-badge">In Development</span>
-          </div>
-          <div class="showcase-body">
-            <div class="showcase-desc">
-              10-episode TV series bible for "Midnight Cases" detective thriller. Complete character bios, episode outlines, and series arc. Pitched to major studios.
-            </div>
-            <div class="showcase-stats">
-              <div class="showcase-stat">⭐ 5.2k stars</div>
-              <div class="showcase-stat">📑 10 Episodes</div>
-              <div class="showcase-stat">Screenplay</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="cta-section">
-    <div class="container">
-      <div class="cta-content">
-        <h2>Ready to Create Your Masterpiece?</h2>
-        <p>Join 100,000+ developers and writers building the future of code and cinema. Start free today, no credit card required.</p>
-        <button class="btn-hero gold" style="margin: 0 auto;">🚀 Launch AICoder Studio Now</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-section">
-          <h4>Product</h4>
-          <a href="#">Features</a>
-          <a href="#">Pricing</a>
-          <a href="#">Enterprise</a>
-          <a href="#">Security</a>
-          <a href="#">Status</a>
-        </div>
-
-        <div class="footer-section">
-          <h4>Development</h4>
-          <a href="#">Code Editor</a>
-          <a href="#">API</a>
-          <a href="#">Integrations</a>
-          <a href="#">Documentation</a>
-          <a href="#">GitHub</a>
-        </div>
-
-        <div class="footer-section">
-          <h4>Screenwriting</h4>
-          <a href="#">Screenplay Editor</a>
-          <a href="#">Export Formats</a>
-          <a href="#">Story Resources</a>
-          <a href="#">Industry Links</a>
-          <a href="#">Gallery</a>
-        </div>
-
-        <div class="footer-section">
-          <h4>Company</h4>
-          <a href="#">About</a>
-          <a href="#">Blog</a>
-          <a href="#">Careers</a>
-          <a href="#">Press</a>
-          <a href="#">Contact</a>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        © 2026 AICoder Studio. All rights reserved. | 
-        <a href="#">Terms of Service</a> • 
-        <a href="#">Privacy Policy</a> • 
-        <a href="#">Security</a>
-      </div>
-    </div>
-  </footer>
+  </div>
 </body>
 </html>
