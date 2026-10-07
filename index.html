@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AICoder · Where AI meets Code</title>
+  <style>
+    :root {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --bg-tertiary: #21262d;
+      --border-default: #30363d;
+      --border-muted: #21262d;
+      --text-primary: #c9d1d9;
+      --text-secondary: #8b949e;
+      --text-tertiary: #6e7681;
+      --accent-blue: #1f6feb;
+      --accent-green: #238636;
+      --accent-red: #da3633;
+      --link-color: #58a6ff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    /* Header / Navbar */
+    .Header {
+      background-color: rgba(13, 17, 23, 0.95);
+      border-bottom: 1px solid var(--border-default);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+
+    .Header-item {
+      display: flex;
+      align-items: center;
+      height: 64px;
+      padding: 0 16px;
+    }
+
+    .Header-link {
+      display: flex;
+      align-items: center;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      margin-right: 24px;
+    }
+
+    .Header-link:hover {
+      color: var(--link-color);
+      text-decoration: none;
+    }
+
+    .Header-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #58a6ff, #79c0ff);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      color: white;
+    }
+
+    .Header-nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex: 1;
+      margin-left: 16px;
+    }
+
+    .Header-nav-item {
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .Header-nav-item:hover {
+      color: var(--link-color);
+      text-decoration: none;
+    }
+
+    .Header-search {
+      flex: 1;
+      max-width: 272px;
+      display: flex;
+      align-items: center;
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: 6px;
+      padding: 5px 12px;
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+
+    .Header-search input {
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      outline: none;
+      flex: 1;
+      margin-left: 8px;
+      font-size: 12px;
+    }
+
+    .Header-search input::placeholder {
+      color: var(--text-tertiary);
+    }
+
+    .Header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      border-radius: 6px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid var(--border-default);
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      background-color: var(--bg-tertiary);
+      border-color: var(--border-default);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: var(--accent-green);
+      border-color: var(--accent-green);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #2ea043;
+      border-color: #2ea043;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, rgba(13, 17, 23, 0.5) 0%, rgba(33, 38, 45, 0.2) 100%);
+      border-bottom: 1px solid var(--border-default);
+      padding: 96px 0 48px;
+    }
+
+    .hero-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-copy h1 {
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.5px;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+    }
+
+    .hero-copy h1 .gradient {
+      background: linear-gradient(90deg, #58a6ff 0%, #79c0ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-copy p {
+      font-size: 20px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .btn-large {
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-large.primary {
+      background-color: var(--accent-green);
+      border-color: var(--accent-green);
+      color: white;
+    }
+
+    .btn-large.secondary {
+      background-color: var(--bg-secondary);
+      border-color: var(--border-default);
+      color: var(--text-primary);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .stat-item strong {
+      display: block;
+      font-size: 20px;
+      color: var(--text-primary);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .hero-mockup {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      border-radius: 8px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    .mockup-header {
+      background-color: var(--bg-primary);
+      border-bottom: 1px solid var(--border-default);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mockup-tabs {
+      display: flex;
+      gap: 16px;
+      flex: 1;
+    }
+
+    .mockup-tab {
+      font-size: 12px;
+      color: var(--text-secondary);
+      border-bottom: 2px solid transparent;
+      padding: 8px 0;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .mockup-tab.active {
+      color: var(--link-color);
+      border-bottom-color: var(--link-color);
+    }
+
+    .mockup-tab:hover {
+      color: var(--text-primary);
+    }
+
+    .mockup-body {
+      padding: 20px;
+      background-color: var(--bg-secondary);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 12px;
+      color: #79c0ff;
+      line-height: 1.8;
+      overflow-x: auto;
+    }
+
+    .code-line {
+      display: flex;
+      gap: 12px;
+    }
+
+    .code-number {
+      color: var(--text-tertiary);
+      user-select: none;
+      min-width: 32px;
+      text-align: right;
+    }
+
+    .code-content {
+      flex: 1;
+    }
+
+    .keyword {
+      color: #ff7b72;
+    }
+
+    .string {
+      color: #a5d6ff;
+    }
+
+    .function {
+      color: #d2a8ff;
+    }
+
+    .comment {
+      color: #8b949e;
+    }
+
+    /* Features Section */
+    .features-section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 48px;
+      letter-spacing: -0.5px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      padding: 24px;
+      border: 1px solid var(--border-default);
+      border-radius: 8px;
+      background-color: var(--bg-secondary);
+      transition: all 0.2s;
+    }
+
+    .feature-card:hover {
+      background-color: var(--bg-tertiary);
+      border-color: var(--border-muted);
+    }
+
+    .feature-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Repositories Section */
+    .repos-section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .repos-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .repos-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--border-default);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .repo-item {
+      padding: 16px;
+      border-bottom: 1px solid var(--border-default);
+      background-color: var(--bg-secondary);
+      transition: all 0.2s;
+    }
+
+    .repo-item:last-child {
+      border-bottom: none;
+    }
+
+    .repo-item:hover {
+      background-color: var(--bg-tertiary);
+    }
+
+    .repo-header-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .repo-icon {
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .repo-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--link-color);
+      cursor: pointer;
+    }
+
+    .repo-name:hover {
+      text-decoration: underline;
+    }
+
+    .repo-badge {
+      background-color: rgba(88, 166, 255, 0.1);
+      color: var(--link-color);
+      padding: 2px 8px;
+      border-radius: 24px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid rgba(88, 166, 255, 0.3);
+    }
+
+    .repo-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .repo-footer {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    .repo-stat {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .language-color {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--bg-secondary);
+      border-top: 1px solid var(--border-default);
+      padding: 48px 0;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      margin-bottom: 32px;
+    }
+
+    .footer-section h4 {
+      color: var(--text-primary);
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .footer-section a {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+
+    .footer-section a:hover {
+      color: var(--link-color);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border-default);
+      padding-top: 24px;
+      text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .hero-copy h1 {
+        font-size: 44px;
+      }
+
+      .hero-mockup {
+        max-width: 100%;
+      }
+
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .Header-nav {
+        display: none;
+      }
+
+      .hero-copy h1 {
+        font-size: 36px;
+      }
+
+      .hero-copy p {
+        font-size: 16px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-stats {
+        flex-wrap: wrap;
+        gap: 24px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .Header-search {
+        display: none;
+      }
+
+      .repo-footer {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="Header">
+    <div class="container" style="display: flex; align-items: center; justify-content: space-between; height: 64px;">
+      <a href="#" class="Header-link" style="margin-right: 0;">
+        <div class="logo-icon">A</div>
+        <span>AICoder</span>
+      </a>
+
+      <nav class="Header-nav" style="margin-left: 32px;">
+        <a href="#" class="Header-nav-item">Explore</a>
+        <a href="#" class="Header-nav-item">Marketplace</a>
+        <a href="#" class="Header-nav-item">Enterprise</a>
+      </nav>
+
+      <div class="Header-search">
+        🔍
+        <input type="text" placeholder="Search or jump to..." />
+      </div>
+
+      <div class="Header-actions">
+        <button class="btn">Sign in</button>
+        <button class="btn btn-primary">Sign up</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-copy">
+        <h1>Where <span class="gradient">AI meets Code</span></h1>
+        <p>Build, collaborate, and deploy with AI-powered development. AICoder brings intelligent workflows to your entire development lifecycle.</p>
+
+        <div class="hero-actions">
+          <button class="btn-large primary">Start building</button>
+          <button class="btn-large secondary">View documentation</button>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-item">
+            <strong>100K+</strong>
+            Developers
+          </div>
+          <div class="stat-item">
+            <strong>50M+</strong>
+            Repositories
+          </div>
+          <div class="stat-item">
+            <strong>4x</strong>
+            Faster shipping
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-mockup">
+        <div class="mockup-header">
+          <div class="mockup-tabs">
+            <div class="mockup-tab active">Code</div>
+            <div class="mockup-tab">Pull Requests</div>
+            <div class="mockup-tab">Issues</div>
+          </div>
+        </div>
+
+        <div class="mockup-body">
+          <div class="code-line">
+            <span class="code-number">1</span>
+            <span class="code-content"><span class="comment">// AI-powered development</span></span>
+          </div>
+          <div class="code-line">
+            <span class="code-number">2</span>
+            <span class="code-content"><span class="keyword">function</span> <span class="function">buildFeature</span>(prompt) {</span>
+          </div>
+          <div class="code-line">
+            <span class="code-number">3</span>
+            <span class="code-content">&nbsp;&nbsp;<span class="keyword">return</span> ai.<span class="function">generate</span>(<span class="string">"production-ready"</span>);</span>
+          </div>
+          <div class="code-line">
+            <span class="code-number">4</span>
+            <span class="code-content">}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="container">
+      <h2 class="section-title">Powerful features for modern development</h2>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <h3>AI Code Generation</h3>
+          <p>Generate production-ready code from natural language. Write features in seconds, not hours.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Smart Code Review</h3>
+          <p>AI-powered pull request analysis catches bugs, suggests improvements, and explains changes automatically.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3>Intelligent Search</h3>
+          <p>Search across millions of repositories and find exactly what you need with semantic understanding.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🚀</div>
+          <h3>Automated Testing</h3>
+          <p>Generate comprehensive test suites, run them in parallel, and deploy with confidence.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🤝</div>
+          <h3>Team Collaboration</h3>
+          <p>Real-time collaboration, integrated discussions, and AI-powered conflict resolution.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Lightning Fast</h3>
+          <p>Built for speed. Deploy changes, run tests, and merge PRs faster than ever before.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Repositories Section -->
+  <section class="repos-section">
+    <div class="container">
+      <div class="repos-header">
+        <h2 class="section-title" style="margin-bottom: 0;">Featured repositories</h2>
+        <a href="#" style="color: var(--link-color); font-size: 14px;">View all →</a>
+      </div>
+
+      <div class="repos-list">
+        <div class="repo-item">
+          <div class="repo-header-row">
+            <div class="repo-icon">📦</div>
+            <a href="#" class="repo-name">aicoder/agent-runtime</a>
+            <span class="repo-badge">Public</span>
+          </div>
+          <div class="repo-desc">High-performance runtime for AI code generation agents with real-time collaboration support</div>
+          <div class="repo-footer">
+            <div class="repo-stat">
+              <span class="language-color" style="background-color: #3178c6;"></span>
+              TypeScript
+            </div>
+            <div class="repo-stat">⭐ 4.2k stars</div>
+            <div class="repo-stat">🔀 342 forks</div>
+            <div class="repo-stat">Updated 2 hours ago</div>
+          </div>
+        </div>
+
+        <div class="repo-item">
+          <div class="repo-header-row">
+            <div class="repo-icon">📦</div>
+            <a href="#" class="repo-name">aicoder/code-review-bot</a>
+            <span class="repo-badge">Public</span>
+          </div>
+          <div class="repo-desc">Intelligent GitHub bot that analyzes pull requests and provides AI-powered code review suggestions</div>
+          <div class="repo-footer">
+            <div class="repo-stat">
+              <span class="language-color" style="background-color: #f1e05a;"></span>
+              Python
+            </div>
+            <div class="repo-stat">⭐ 2.8k stars</div>
+            <div class="repo-stat">🔀 198 forks</div>
+            <div class="repo-stat">Updated 4 hours ago</div>
+          </div>
+        </div>
+
+        <div class="repo-item">
+          <div class="repo-header-row">
+            <div class="repo-icon">📦</div>
+            <a href="#" class="repo-name">aicoder/deployment-pipeline</a>
+            <span class="repo-badge">Public</span>
+          </div>
+          <div class="repo-desc">Complete CI/CD pipeline with automated testing, security scanning, and one-click deployments</div>
+          <div class="repo-footer">
+            <div class="repo-stat">
+              <span class="language-color" style="background-color: #00a86b;"></span>
+              Go
+            </div>
+            <div class="repo-stat">⭐ 1.9k stars</div>
+            <div class="repo-stat">🔀 127 forks</div>
+            <div class="repo-stat">Updated 1 day ago</div>
+          </div>
+        </div>
+
+        <div class="repo-item">
+          <div class="repo-header-row">
+            <div class="repo-icon">📦</div>
+            <a href="#" class="repo-name">aicoder/docs</a>
+            <span class="repo-badge">Public</span>
+          </div>
+          <div class="repo-desc">Comprehensive documentation for AICoder platform with API references, guides, and examples</div>
+          <div class="repo-footer">
+            <div class="repo-stat">
+              <span class="language-color" style="background-color: #563d7c;"></span>
+              Markdown
+            </div>
+            <div class="repo-stat">⭐ 892 stars</div>
+            <div class="repo-stat">🔀 342 forks</div>
+            <div class="repo-stat">Updated 6 hours ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h4>Product</h4>
+          <a href="#">Features</a>
+          <a href="#">Pricing</a>
+          <a href="#">Security</a>
+          <a href="#">Enterprise</a>
+          <a href="#">Customer stories</a>
+        </div>
+
+        <div class="footer-section">
+          <h4>Community</h4>
+          <a href="#">Discussions</a>
+          <a href="#">Marketplace</a>
+          <a href="#">Trending</a>
+          <a href="#">Collections</a>
+        </div>
+
+        <div class="footer-section">
+          <h4>Developers</h4>
+          <a href="#">Documentation</a>
+          <a href="#">API Reference</a>
+          <a href="#">GraphQL API</a>
+          <a href="#">Status</a>
+        </div>
+
+        <div class="footer-section">
+          <h4>Company</h4>
+          <a href="#">About</a>
+          <a href="#">Blog</a>
+          <a href="#">Careers</a>
+          <a href="#">Press</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        © 2026 AICoder, Inc. All rights reserved. • 
+        <a href="#" style="color: var(--text-secondary);">Terms</a> • 
+        <a href="#" style="color: var(--text-secondary);">Privacy</a> • 
+        <a href="#" style="color: var(--text-secondary);">Security</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
