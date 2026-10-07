@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AICoder · Where AI meets Code</title>
+  <title>AICoder · AI-Powered Development & Creative Studio</title>
   <style>
     :root {
       --bg-primary: #0d1117;
@@ -17,6 +17,7 @@
       --accent-blue: #1f6feb;
       --accent-green: #238636;
       --accent-red: #da3633;
+      --accent-purple: #d2a8ff;
       --link-color: #58a6ff;
     }
 
@@ -227,6 +228,13 @@
       background-clip: text;
     }
 
+    .hero-copy h1 .gradient-purple {
+      background: linear-gradient(90deg, #d2a8ff 0%, #a371f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
     .hero-copy p {
       font-size: 20px;
       color: var(--text-secondary);
@@ -392,6 +400,7 @@
     .feature-card:hover {
       background-color: var(--bg-tertiary);
       border-color: var(--border-muted);
+      transform: translateY(-2px);
     }
 
     .feature-icon {
@@ -411,6 +420,69 @@
       color: var(--text-secondary);
       line-height: 1.6;
       margin: 0;
+    }
+
+    /* Use Cases Section */
+    .use-cases-section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .use-cases-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .use-case-card {
+      padding: 32px;
+      border: 1px solid var(--border-default);
+      border-radius: 8px;
+      background-color: var(--bg-secondary);
+      transition: all 0.2s;
+    }
+
+    .use-case-card:hover {
+      background-color: var(--bg-tertiary);
+      border-color: var(--accent-blue);
+      box-shadow: 0 8px 24px rgba(88, 166, 255, 0.15);
+    }
+
+    .use-case-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .use-case-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .use-case-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .use-case-features {
+      list-style: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .use-case-features li {
+      padding: 6px 0;
+      display: flex;
+      gap: 8px;
+    }
+
+    .use-case-features li:before {
+      content: "✓";
+      color: var(--accent-green);
+      font-weight: 700;
     }
 
     /* Repositories Section */
@@ -487,6 +559,12 @@
       border: 1px solid rgba(88, 166, 255, 0.3);
     }
 
+    .repo-badge.ai {
+      background-color: rgba(210, 168, 255, 0.1);
+      color: var(--accent-purple);
+      border-color: rgba(210, 168, 255, 0.3);
+    }
+
     .repo-desc {
       font-size: 14px;
       color: var(--text-secondary);
@@ -512,6 +590,75 @@
       height: 12px;
       border-radius: 50%;
       display: inline-block;
+    }
+
+    /* Pricing Section */
+    .pricing-section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .pricing-card {
+      padding: 32px;
+      border: 1px solid var(--border-default);
+      border-radius: 8px;
+      background-color: var(--bg-secondary);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--accent-green);
+      box-shadow: 0 0 20px rgba(46, 160, 67, 0.2);
+      transform: scale(1.05);
+    }
+
+    .pricing-name {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
+    .pricing-price {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--accent-green);
+      margin-bottom: 4px;
+    }
+
+    .pricing-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      flex: 1;
+      margin-bottom: 24px;
+    }
+
+    .pricing-features li {
+      padding: 8px 0;
+      font-size: 13px;
+      color: var(--text-secondary);
+      display: flex;
+      gap: 8px;
+    }
+
+    .pricing-features li:before {
+      content: "✓";
+      color: var(--accent-green);
+      font-weight: 700;
+      min-width: 16px;
     }
 
     /* Footer */
@@ -573,6 +720,18 @@
         grid-template-columns: repeat(2, 1fr);
       }
 
+      .use-cases-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .pricing-card.featured {
+        transform: scale(1);
+      }
+
       .footer-grid {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -592,6 +751,10 @@
       }
 
       .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-grid {
         grid-template-columns: 1fr;
       }
 
@@ -624,19 +787,20 @@
       </a>
 
       <nav class="Header-nav" style="margin-left: 32px;">
-        <a href="#" class="Header-nav-item">Explore</a>
-        <a href="#" class="Header-nav-item">Marketplace</a>
-        <a href="#" class="Header-nav-item">Enterprise</a>
+        <a href="#features" class="Header-nav-item">Features</a>
+        <a href="#use-cases" class="Header-nav-item">Studio</a>
+        <a href="#repositories" class="Header-nav-item">Projects</a>
+        <a href="#pricing" class="Header-nav-item">Pricing</a>
       </nav>
 
       <div class="Header-search">
         🔍
-        <input type="text" placeholder="Search or jump to..." />
+        <input type="text" placeholder="Search repositories..." />
       </div>
 
       <div class="Header-actions">
         <button class="btn">Sign in</button>
-        <button class="btn btn-primary">Sign up</button>
+        <button class="btn btn-primary">Get started</button>
       </div>
     </div>
   </header>
@@ -645,12 +809,12 @@
   <section class="hero-section">
     <div class="hero-content">
       <div class="hero-copy">
-        <h1>Where <span class="gradient">AI meets Code</span></h1>
-        <p>Build, collaborate, and deploy with AI-powered development. AICoder brings intelligent workflows to your entire development lifecycle.</p>
+        <h1>Where <span class="gradient">Code</span> & <span class="gradient-purple">Creativity</span> Meet</h1>
+        <p>Build production-ready applications and craft professional movie scripts with AI. AICoder powers full-stack development and creative storytelling.</p>
 
         <div class="hero-actions">
-          <button class="btn-large primary">Start building</button>
-          <button class="btn-large secondary">View documentation</button>
+          <button class="btn-large primary">Start creating</button>
+          <button class="btn-large secondary">View gallery</button>
         </div>
 
         <div class="hero-stats">
@@ -660,11 +824,11 @@
           </div>
           <div class="stat-item">
             <strong>50M+</strong>
-            Repositories
+            Code Repos
           </div>
           <div class="stat-item">
-            <strong>4x</strong>
-            Faster shipping
+            <strong>25K+</strong>
+            Scripts
           </div>
         </div>
       </div>
@@ -673,27 +837,31 @@
         <div class="mockup-header">
           <div class="mockup-tabs">
             <div class="mockup-tab active">Code</div>
-            <div class="mockup-tab">Pull Requests</div>
-            <div class="mockup-tab">Issues</div>
+            <div class="mockup-tab">Scripts</div>
+            <div class="mockup-tab">Both</div>
           </div>
         </div>
 
         <div class="mockup-body">
           <div class="code-line">
             <span class="code-number">1</span>
-            <span class="code-content"><span class="comment">// AI-powered development</span></span>
+            <span class="code-content"><span class="comment">// Full-stack with AI creativity</span></span>
           </div>
           <div class="code-line">
             <span class="code-number">2</span>
-            <span class="code-content"><span class="keyword">function</span> <span class="function">buildFeature</span>(prompt) {</span>
+            <span class="code-content"><span class="keyword">const</span> project = <span class="function">createProject</span>({</span>
           </div>
           <div class="code-line">
             <span class="code-number">3</span>
-            <span class="code-content">&nbsp;&nbsp;<span class="keyword">return</span> ai.<span class="function">generate</span>(<span class="string">"production-ready"</span>);</span>
+            <span class="code-content">&nbsp;&nbsp;code: <span class="string">"production-ready"</span>,</span>
           </div>
           <div class="code-line">
             <span class="code-number">4</span>
-            <span class="code-content">}</span>
+            <span class="code-content">&nbsp;&nbsp;scripts: <span class="string">"professional-grade"</span></span>
+          </div>
+          <div class="code-line">
+            <span class="code-number">5</span>
+            <span class="code-content">});</span>
           </div>
         </div>
       </div>
@@ -701,9 +869,9 @@
   </section>
 
   <!-- Features Section -->
-  <section class="features-section">
+  <section class="features-section" id="features">
     <div class="container">
-      <h2 class="section-title">Powerful features for modern development</h2>
+      <h2 class="section-title">Powerful Features for Developers & Creators</h2>
 
       <div class="features-grid">
         <div class="feature-card">
@@ -713,117 +881,269 @@
         </div>
 
         <div class="feature-card">
+          <div class="feature-icon">🎬</div>
+          <h3>Professional Script Writing</h3>
+          <p>Create movie scripts, screenplays, and TV series with AI-powered storytelling and formatting.</p>
+        </div>
+
+        <div class="feature-card">
           <div class="feature-icon">📊</div>
           <h3>Smart Code Review</h3>
-          <p>AI-powered pull request analysis catches bugs, suggests improvements, and explains changes automatically.</p>
+          <p>AI-powered pull request analysis catches bugs, suggests improvements, and explains changes.</p>
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">🔍</div>
-          <h3>Intelligent Search</h3>
-          <p>Search across millions of repositories and find exactly what you need with semantic understanding.</p>
+          <div class="feature-icon">🎨</div>
+          <h3>Creative Collaboration</h3>
+          <p>Work with writers, directors, and developers in real-time on scripts and code projects.</p>
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">🚀</div>
-          <h3>Automated Testing</h3>
-          <p>Generate comprehensive test suites, run them in parallel, and deploy with confidence.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">🤝</div>
-          <h3>Team Collaboration</h3>
-          <p>Real-time collaboration, integrated discussions, and AI-powered conflict resolution.</p>
+          <div class="feature-icon">📚</div>
+          <h3>Version Control</h3>
+          <p>Track every revision of your code and scripts with Git-like version control and conflict resolution.</p>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon">⚡</div>
-          <h3>Lightning Fast</h3>
-          <p>Built for speed. Deploy changes, run tests, and merge PRs faster than ever before.</p>
+          <h3>Deploy Everything</h3>
+          <p>One-click deployment for applications AND export movie scripts in industry-standard formats.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases Section -->
+  <section class="use-cases-section" id="use-cases">
+    <div class="container">
+      <h2 class="section-title">Dual Studio: Code & Creativity</h2>
+
+      <div class="use-cases-grid">
+        <div class="use-case-card">
+          <div class="use-case-icon">💻</div>
+          <h3>Full-Stack Development</h3>
+          <p>From backend APIs to frontend UIs, generate entire applications with AI assistance. Perfect for startups, enterprises, and solo developers.</p>
+          <ul class="use-case-features">
+            <li>Generate backend with Node.js, Python, Go</li>
+            <li>Create React, Vue, or Angular frontends</li>
+            <li>Database schema and migrations</li>
+            <li>Complete testing suites</li>
+            <li>CI/CD pipeline setup</li>
+          </ul>
+        </div>
+
+        <div class="use-case-card">
+          <div class="use-case-icon">🎬</div>
+          <h3>Professional Screenwriting</h3>
+          <p>Write movie scripts, TV pilots, web series, and short films with professional formatting. Perfect for screenwriters, production companies, and filmmakers.</p>
+          <ul class="use-case-features">
+            <li>Feature film screenplays (90-120 pages)</li>
+            <li>TV series bible & episode outlines</li>
+            <li>Industry-standard formatting (Final Draft)</li>
+            <li>Story structure & character development</li>
+            <li>Dialogue refinement & revision tracking</li>
+          </ul>
+        </div>
+
+        <div class="use-case-card">
+          <div class="use-case-icon">🎮</div>
+          <h3>Game Development</h3>
+          <p>Build games with Unity, Unreal, or Godot. Generate game mechanics, narratives, and code simultaneously.</p>
+          <ul class="use-case-features">
+            <li>Game engine integration (Unity/Godot)</li>
+            <li>Game mechanics and AI systems</li>
+            <li>Narrative & dialogue generation</li>
+            <li>Asset management</li>
+            <li>Multiplayer architecture</li>
+          </ul>
+        </div>
+
+        <div class="use-case-card">
+          <div class="use-case-icon">🎓</div>
+          <h3>Content & Education</h3>
+          <p>Create interactive educational apps with engaging narratives. Combine technical documentation with creative storytelling.</p>
+          <ul class="use-case-features">
+            <li>Interactive course platforms</li>
+            <li>Educational game mechanics</li>
+            <li>Documentation with narratives</li>
+            <li>Tutorial content generation</li>
+            <li>Learner engagement optimization</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Repositories Section -->
-  <section class="repos-section">
+  <section class="repos-section" id="repositories">
     <div class="container">
       <div class="repos-header">
-        <h2 class="section-title" style="margin-bottom: 0;">Featured repositories</h2>
+        <h2 class="section-title" style="margin-bottom: 0;">Featured Projects & Scripts</h2>
         <a href="#" style="color: var(--link-color); font-size: 14px;">View all →</a>
       </div>
 
       <div class="repos-list">
         <div class="repo-item">
           <div class="repo-header-row">
-            <div class="repo-icon">📦</div>
-            <a href="#" class="repo-name">aicoder/agent-runtime</a>
+            <div class="repo-icon">💻</div>
+            <a href="#" class="repo-name">aicoder/ai-saas-platform</a>
             <span class="repo-badge">Public</span>
           </div>
-          <div class="repo-desc">High-performance runtime for AI code generation agents with real-time collaboration support</div>
+          <div class="repo-desc">Full-stack SaaS application with authentication, payments, and dashboard built entirely with AI assistance</div>
           <div class="repo-footer">
             <div class="repo-stat">
               <span class="language-color" style="background-color: #3178c6;"></span>
               TypeScript
             </div>
-            <div class="repo-stat">⭐ 4.2k stars</div>
-            <div class="repo-stat">🔀 342 forks</div>
+            <div class="repo-stat">⭐ 12.4k stars</div>
+            <div class="repo-stat">🔀 892 forks</div>
             <div class="repo-stat">Updated 2 hours ago</div>
           </div>
         </div>
 
         <div class="repo-item">
           <div class="repo-header-row">
-            <div class="repo-icon">📦</div>
-            <a href="#" class="repo-name">aicoder/code-review-bot</a>
-            <span class="repo-badge">Public</span>
+            <div class="repo-icon">🎬</div>
+            <a href="#" class="repo-name">aicoder/infinity-symbiotes-movie</a>
+            <span class="repo-badge ai">AI Script</span>
           </div>
-          <div class="repo-desc">Intelligent GitHub bot that analyzes pull requests and provides AI-powered code review suggestions</div>
+          <div class="repo-desc">Professional feature film screenplay "Infinity Symbiotes" - Award-winning science fiction thriller with 120-page draft</div>
           <div class="repo-footer">
             <div class="repo-stat">
-              <span class="language-color" style="background-color: #f1e05a;"></span>
-              Python
+              <span class="language-color" style="background-color: #a371f7;"></span>
+              Screenplay
             </div>
-            <div class="repo-stat">⭐ 2.8k stars</div>
-            <div class="repo-stat">🔀 198 forks</div>
-            <div class="repo-stat">Updated 4 hours ago</div>
+            <div class="repo-stat">⭐ 4.2k stars</div>
+            <div class="repo-stat">🔀 342 forks</div>
+            <div class="repo-stat">Updated 5 hours ago</div>
           </div>
         </div>
 
         <div class="repo-item">
           <div class="repo-header-row">
-            <div class="repo-icon">📦</div>
-            <a href="#" class="repo-name">aicoder/deployment-pipeline</a>
+            <div class="repo-icon">💻</div>
+            <a href="#" class="repo-name">aicoder/streaming-platform</a>
             <span class="repo-badge">Public</span>
           </div>
-          <div class="repo-desc">Complete CI/CD pipeline with automated testing, security scanning, and one-click deployments</div>
+          <div class="repo-desc">Netflix-like streaming platform with video transcoding, recommendations, and user management</div>
           <div class="repo-footer">
             <div class="repo-stat">
-              <span class="language-color" style="background-color: #00a86b;"></span>
-              Go
+              <span class="language-color" style="background-color: #f1e05a;"></span>
+              Python
             </div>
-            <div class="repo-stat">⭐ 1.9k stars</div>
-            <div class="repo-stat">🔀 127 forks</div>
+            <div class="repo-stat">⭐ 8.7k stars</div>
+            <div class="repo-stat">🔀 456 forks</div>
             <div class="repo-stat">Updated 1 day ago</div>
           </div>
         </div>
 
         <div class="repo-item">
           <div class="repo-header-row">
-            <div class="repo-icon">📦</div>
-            <a href="#" class="repo-name">aicoder/docs</a>
-            <span class="repo-badge">Public</span>
+            <div class="repo-icon">🎬</div>
+            <a href="#" class="repo-name">aicoder/noir-detective-series</a>
+            <span class="repo-badge ai">AI Script</span>
           </div>
-          <div class="repo-desc">Comprehensive documentation for AICoder platform with API references, guides, and examples</div>
+          <div class="repo-desc">TV series bible for "Midnight Cases" - 10-episode detective thriller with complete character arcs and plot outlines</div>
           <div class="repo-footer">
             <div class="repo-stat">
-              <span class="language-color" style="background-color: #563d7c;"></span>
-              Markdown
+              <span class="language-color" style="background-color: #a371f7;"></span>
+              Screenplay
             </div>
-            <div class="repo-stat">⭐ 892 stars</div>
-            <div class="repo-stat">🔀 342 forks</div>
-            <div class="repo-stat">Updated 6 hours ago</div>
+            <div class="repo-stat">⭐ 2.1k stars</div>
+            <div class="repo-stat">🔀 178 forks</div>
+            <div class="repo-stat">Updated yesterday</div>
           </div>
+        </div>
+
+        <div class="repo-item">
+          <div class="repo-header-row">
+            <div class="repo-icon">💻</div>
+            <a href="#" class="repo-name">aicoder/ai-code-review-bot</a>
+            <span class="repo-badge">Public</span>
+          </div>
+          <div class="repo-desc">Intelligent GitHub bot for automated code reviews and script feedback on pull requests and screenplay submissions</div>
+          <div class="repo-footer">
+            <div class="repo-stat">
+              <span class="language-color" style="background-color: #f1e05a;"></span>
+              Python
+            </div>
+            <div class="repo-stat">⭐ 6.9k stars</div>
+            <div class="repo-stat">🔀 512 forks</div>
+            <div class="repo-stat">Updated 3 hours ago</div>
+          </div>
+        </div>
+
+        <div class="repo-item">
+          <div class="repo-header-row">
+            <div class="repo-icon">🎬</div>
+            <a href="#" class="repo-name">aicoder/scifi-anthology</a>
+            <span class="repo-badge ai">AI Script</span>
+          </div>
+          <div class="repo-desc">Science fiction anthology series with 5 standalone stories exploring AI, consciousness, and humanity</div>
+          <div class="repo-footer">
+            <div class="repo-stat">
+              <span class="language-color" style="background-color: #a371f7;"></span>
+              Screenplay
+            </div>
+            <div class="repo-stat">⭐ 3.4k stars</div>
+            <div class="repo-stat">🔀 289 forks</div>
+            <div class="repo-stat">Updated 2 days ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing-section" id="pricing">
+    <div class="container">
+      <h2 class="section-title">Simple, Transparent Pricing</h2>
+      <p style="text-align: center; color: var(--text-secondary); margin-bottom: 48px; font-size: 16px;">
+        Choose the plan that works for you. All plans include full access to code and script generation.
+      </p>
+
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-name">Starter</div>
+          <div class="pricing-price">Free</div>
+          <div class="pricing-desc">Perfect for learning and small projects</div>
+          <ul class="pricing-features">
+            <li>5 AI code generations/day</li>
+            <li>2 screenplay pages/month</li>
+            <li>Public repositories only</li>
+            <li>Community support</li>
+          </ul>
+          <button class="btn btn-large secondary" style="width: 100%;">Get started</button>
+        </div>
+
+        <div class="pricing-card featured">
+          <div class="pricing-name">Professional</div>
+          <div class="pricing-price">$29<span style="font-size: 16px;">/mo</span></div>
+          <div class="pricing-desc">For developers and writers</div>
+          <ul class="pricing-features">
+            <li>Unlimited AI code generations</li>
+            <li>Unlimited screenplay pages</li>
+            <li>Public & private repositories</li>
+            <li>Advanced code review</li>
+            <li>Script formatting & export</li>
+            <li>Priority support</li>
+          </ul>
+          <button class="btn btn-large primary" style="width: 100%;">Start free trial</button>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-name">Studio</div>
+          <div class="pricing-price">$99<span style="font-size: 16px;">/mo</span></div>
+          <div class="pricing-desc">For teams and production companies</div>
+          <ul class="pricing-features">
+            <li>Everything in Professional</li>
+            <li>Team collaboration (10 seats)</li>
+            <li>Advanced AI models</li>
+            <li>Custom integrations</li>
+            <li>Dedicated account manager</li>
+            <li>24/7 priority support</li>
+          </ul>
+          <button class="btn btn-large secondary" style="width: 100%;">Contact sales</button>
         </div>
       </div>
     </div>
@@ -839,23 +1159,23 @@
           <a href="#">Pricing</a>
           <a href="#">Security</a>
           <a href="#">Enterprise</a>
-          <a href="#">Customer stories</a>
+          <a href="#">Status</a>
         </div>
 
         <div class="footer-section">
-          <h4>Community</h4>
-          <a href="#">Discussions</a>
-          <a href="#">Marketplace</a>
-          <a href="#">Trending</a>
-          <a href="#">Collections</a>
+          <h4>Studio</h4>
+          <a href="#">Screenwriting</a>
+          <a href="#">Script Examples</a>
+          <a href="#">Formatting Guide</a>
+          <a href="#">Resources</a>
         </div>
 
         <div class="footer-section">
           <h4>Developers</h4>
           <a href="#">Documentation</a>
           <a href="#">API Reference</a>
-          <a href="#">GraphQL API</a>
-          <a href="#">Status</a>
+          <a href="#">GitHub</a>
+          <a href="#">Community</a>
         </div>
 
         <div class="footer-section">
@@ -864,7 +1184,6 @@
           <a href="#">Blog</a>
           <a href="#">Careers</a>
           <a href="#">Press</a>
-          <a href="#">Contact</a>
         </div>
       </div>
 
